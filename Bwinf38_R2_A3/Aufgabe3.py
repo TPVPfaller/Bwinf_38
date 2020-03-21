@@ -1,7 +1,7 @@
+import collections
+
 import math
 import re
-import itertools
-import numpy
 import tkinter as tk
 from collections import defaultdict
 
@@ -14,17 +14,17 @@ class Data:
         self.view_points()
         for line, val in enumerate(file.read().split()):
             if line == 1:
-                x = re.search("(?P<teil1>[0-9]*),(?P<teil2>[0-9]*)", val)
-                self.start = (int(x.group("teil1")), int(x.group("teil2")))
+                x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
+                self.start = (int(x.group("part1")), int(x.group("part2")))
             elif line == 2:
-                x = re.search("(?P<teil1>[0-9]*),(?P<teil2>[0-9]*)", val)
-                self.target = (int(x.group("teil1")), int(x.group("teil2")))
+                x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
+                self.target = (int(x.group("part1")), int(x.group("part2")))
             elif line > 2 and line % 2:
-                x = re.search("(?P<teil1>[0-9]*),(?P<teil2>[0-9]*)", val)
-                pos1 = (int(x.group("teil1")), int(x.group("teil2")))
+                x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
+                pos1 = (int(x.group("part1")), int(x.group("part2")))
             elif line > 2:
-                x = re.search("(?P<teil1>[0-9]*),(?P<teil2>[0-9]*)", val)
-                pos2 = (int(x.group("teil1")), int(x.group("teil2")))
+                x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
+                pos2 = (int(x.group("part1")), int(x.group("part2")))
                 self.connections.add_edge(pos1, pos2, self.calc_distance(pos1, pos2))
                 self.draw_edge(pos1, pos2, "black")
         file.close()
@@ -40,13 +40,18 @@ class Data:
         self.canvas = tk.Canvas(root, bg="white", height=1000, width=1200)
 
     def draw_edge(self, tuple2, tuple1, color):
-        self.canvas.create_line(100 + tuple1[0] * 70 + 5, 900 - tuple1[1] * 70 + 5, 100 + tuple2[0] * 70 + 5, 900 - tuple2[1] * 70 + 5, fill = color, width = 5)
-        self.canvas.create_oval(100 + tuple1[0] * 70, 900 - tuple1[1] * 70, 100 + tuple1[0] * 70 + 10, 900 - tuple1[1] * 70 + 10, fill = "red")
-        self.canvas.create_oval(100 + tuple2[0] * 70, 900 - tuple2[1] * 70, 100 + tuple2[0] * 70 + 10, 900 - tuple2[1] * 70 + 10, fill = "red")
+        self.canvas.create_line(100 + tuple1[0] * 70 + 5, 900 - tuple1[1] * 70 + 5, 100 + tuple2[0] * 70 + 5,
+                                900 - tuple2[1] * 70 + 5, fill=color, width=5)
+        self.canvas.create_oval(100 + tuple1[0] * 70, 900 - tuple1[1] * 70, 100 + tuple1[0] * 70 + 10,
+                                900 - tuple1[1] * 70 + 10, fill="red")
+        self.canvas.create_oval(100 + tuple2[0] * 70, 900 - tuple2[1] * 70, 100 + tuple2[0] * 70 + 10,
+                                900 - tuple2[1] * 70 + 10, fill="red")
         if tuple1 == self.start or tuple1 == self.target:
-            self.canvas.create_oval(100 + tuple1[0] * 70, 900 - tuple1[1] * 70, 100 + tuple1[0] * 70 + 10, 900 - tuple1[1] * 70 + 10, fill = "blue")
+            self.canvas.create_oval(100 + tuple1[0] * 70, 900 - tuple1[1] * 70, 100 + tuple1[0] * 70 + 10,
+                                    900 - tuple1[1] * 70 + 10, fill="blue")
             if tuple2 == self.start or tuple2 == self.target:
-                self.canvas.create_oval(100 + tuple2[0] * 70, 900 - tuple2[1] * 70, 100 + tuple2[0] * 70 + 10, 900 - tuple2[1] * 70 + 10, fill = "blue")
+                self.canvas.create_oval(100 + tuple2[0] * 70, 900 - tuple2[1] * 70, 100 + tuple2[0] * 70 + 10,
+                                        900 - tuple2[1] * 70 + 10, fill="blue")
 
     def draw_path(self, list):
         for i in range(len(list) - 1):
@@ -80,28 +85,17 @@ class Graph:
                 counter += 1
         print('-')
 
-    def sort(self, queue):
-        if not queue:
-            return
-        u = queue.pop(0)
-        for v, w in self.graph[u]:
-            if v not in self.nodes:
-                self.nodes.append(v)
-                queue.append(v)
-        self.sort(queue)
-
-    def get_nodes(self, data):
-        q = [data.start]
-        self.nodes.clear()
-        self.nodes.append(data.start)
-        self.sort(q)
-        return self.nodes
-
-    def get_nodes_reversed(self, data):
-        q = [data.target]
-        self.nodes.append(data.target)
-        self.sort(q)
-        return self.nodes
+    def get_nodes(self, root):
+        visited = []
+        queue = collections.deque([root])
+        visited.append(root)
+        while queue:
+            vertex = queue.popleft()
+            for neighbour, w in self.graph[vertex]:
+                if neighbour not in visited:
+                    visited.append(neighbour)
+                    queue.append(neighbour)
+        return visited
 
     def get_distance(self, node1, node2):
         for e in self.graph[node1]:
@@ -128,16 +122,20 @@ class Solve:
                 self.connections[pos1].append()
 
     @staticmethod
-    def get_if_straight(a, b, c):
-        vector_a = numpy.subtract(b, a)
-        vector_b = numpy.subtract(b, c)
-        return round(math.degrees(numpy.arccos(numpy.dot(vector_a, vector_b) / (
-                    math.sqrt((vector_a[0] ** 2) + (vector_a[1] ** 2)) * math.sqrt((vector_b[0] ** 2) +
-                                                                                (vector_b[1] ** 2)))))) != 180
+    def get_gradient(a, b):
+        if b[0] == a[0]:
+            if b[1] > a[1]:
+                return 100
+            else:
+                return -100
+        elif (b[1] - a[1]) / (b[0] - a[0]) == -0.0 or (b[1] - a[1]) / (b[0] - a[0]) == 0.0:
+            return 0
+        else:
+            return (b[1] - a[1]) / (b[0] - a[0])
 
     def find_path(self, start, target, max_percentage):
         print(start, target)
-        nodes = self.connections.get_nodes_reversed(self.data)  # From target to start
+        nodes = self.connections.get_nodes(target)  # From target to start
         g = self.connections.get_graph()
         dist_to_target = defaultdict()
         parent = defaultdict()
@@ -145,7 +143,7 @@ class Solve:
             dist_to_target[e] = float("Inf")
             parent[e] = None
         dist_to_target[target] = 0
-
+        print(nodes)
         for current in nodes:
             for node, weight in g[current]:
                 if dist_to_target[current] + weight < dist_to_target[node]:
@@ -159,46 +157,72 @@ class Solve:
         while x:
             path.append(x)
             x = parent[x]
-        nodes = self.connections.get_nodes(self.data)   # From start to target
-        max_dist = dist_to_target[start] * (1+max_percentage/100)
+        nodes = self.connections.get_nodes(start)  # From start to target
+        max_dist = dist_to_target[start] * (1 + max_percentage / 100)
         best = defaultdict()
-        self.get_if_straight((0, 0), (0, 1), (0, 2))
+        self.get_gradient((0, 0), (0, 1))
         for e in nodes:
-            best[e] = [float("Inf"), float("Inf")]  # [0] := turns, [1] := distance
             parent[e] = None
-        best[start][0] = 0
-        best[start][1] = 0
-        for e, dist in g[start]:
-            best[e] = [0, dist]
+        print(nodes)
+        test = defaultdict()
+        parent[start] = [Parent(start, 200, 0)]
         for s in nodes:
-            for middle, weightM in g[s]:
-                if middle == target or s == target:
-                    break
-                if dist_to_target[s] + weightM < dist_to_target[middle]:
-                    dist_to_target[middle] = dist_to_target[s] + middle
-                for tar, weightT in g[middle]:
-                    if s != middle and middle != tar and s != tar:
-                        #print(best[s][0])
-                        print(s, middle, tar)
-                        print(int(self.get_if_straight(s, middle, tar)))
-                        if (best[s][1] + weightM + weightT + dist_to_target[tar]) <= max_dist:
-                            if best[s][0] + int(self.get_if_straight(s, middle, tar)) < best[tar][0]:
-                                best[tar][0] = best[s][0] + int(self.get_if_straight(s, middle, tar))
-                                parent[tar] = middle
-                                parent[middle] = s
-                                best[tar][1] = best[s][1] + weightT + weightM
-
-        print(best[target])
-        x = target
-        path = []
-        print(best)
-        while x:
-            path.append(x)
-            x = parent[x]
-        print(path)
-
-        self.data.draw_path(path)
+            for tar, weight in g[s]:
+                gradient = self.get_gradient(s, tar)
+                if tar == start:
+                    pass
+                elif s == start:
+                    parent[tar] = [Parent(s, gradient, 0)]
+                else:
+                    turns = (parent[s][0].getTurns())
+                    turns += 1
+                    for e in parent[s]:
+                        if e.getGradient() == gradient:
+                            turns -= 1
+                            test[tar] = i
+                            break
+                    if parent[tar] is None:
+                        parent[tar] = [Parent(s, gradient, turns)]
+                    else:
+                        if turns < parent[tar][0].getTurns():
+                            parent[tar] = [Parent(s, gradient, turns)]
+                        elif turns == parent[tar][0].getTurns():
+                            parent[tar].append(Parent(s, gradient, turns))
+        print(parent)
+        cur = target
+        print(parent[cur][0].getTurns())
+        result = []
+        print(test)
+        while parent[cur][0].getGradient() != 200:
+            if len(parent[cur]) > 1:
+                cur = parent[cur][test[cur]].getNode()
+            else:
+                cur = parent[cur][0].getNode()
+            result.append(cur)
+            print(cur)
+        print(result)
+        self.data.draw_path(result)
         self.data.finish()
+
+
+class Parent:
+    node = (0, 0)
+    gradient = 0
+    turns = 0
+
+    def __init__(self, node, gradient, turns):
+        self.node = node
+        self.gradient = gradient
+        self.turns = turns
+
+    def getNode(self):
+        return self.node
+
+    def getGradient(self):
+        return self.gradient
+
+    def getTurns(self):
+        return self.turns
 
 
 d = Data("Beispiel1.txt")
