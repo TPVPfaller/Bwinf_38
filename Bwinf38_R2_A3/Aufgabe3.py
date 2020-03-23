@@ -26,7 +26,7 @@ class Data:
                 x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
                 pos2 = (int(x.group("part1")), int(x.group("part2")))
                 self.connections.add_edge(pos1, pos2, self.calc_distance(pos1, pos2))
-                #self.draw_edge(pos1, pos2, "black")
+                self.draw_edge(pos1, pos2, "black")
         file.close()
 
     @staticmethod
@@ -217,6 +217,6 @@ s = Solve(d)
 result = s.find_path(d.start, d.target, 15)
 time2 = time.time()
 
-#d.draw_path(result)
-#d.finish()
+d.draw_path(result)
+d.finish()
 print('In ' + str(round((time2 - time1), 10) * 1000) + ' Milliseconds')
