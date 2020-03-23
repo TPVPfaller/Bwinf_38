@@ -1,5 +1,5 @@
 import collections
-
+import time
 import math
 import re
 import tkinter as tk
@@ -26,7 +26,7 @@ class Data:
                 x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
                 pos2 = (int(x.group("part1")), int(x.group("part2")))
                 self.connections.add_edge(pos1, pos2, self.calc_distance(pos1, pos2))
-                self.draw_edge(pos1, pos2, "black")
+                #self.draw_edge(pos1, pos2, "black")
         file.close()
 
     @staticmethod
@@ -72,18 +72,6 @@ class Graph:
     def add_edge(self, u_tuple, v_tuple, w):
         self.graph[u_tuple].append((v_tuple, w))
         self.graph[v_tuple].append((u_tuple, w))
-
-    def print(self):
-        for u in self.graph:
-            print(str(u) + ":", end=" [")
-            counter = 1
-            for v, w in self.graph[u]:
-                if len(self.graph[u]) != counter:
-                    print("(" + str(v) + " - distance: " + str(w), end="),  ")
-                else:
-                    print("(" + str(v) + " - distance: " + str(w), end=")], ")
-                counter += 1
-        print('-')
 
     def get_nodes(self, root):
         visited = []
@@ -134,89 +122,81 @@ class Solve:
             return (b[1] - a[1]) / (b[0] - a[0])
 
     def find_path(self, start, target, max_percentage):
-        print(start, target)
         nodes = self.connections.get_nodes(target)  # From target to start
         g = self.connections.get_graph()
         dist_to_target = defaultdict()
-        parent = defaultdict()
+        parents = defaultdict()
         for e in nodes:
             dist_to_target[e] = float("Inf")
-            parent[e] = None
+            parents[e] = None
         dist_to_target[target] = 0
-        print(nodes)
-        for current in nodes:
+        for current in nodes: # Dijkstra
             for node, weight in g[current]:
                 if dist_to_target[current] + weight < dist_to_target[node]:
                     dist_to_target[node] = dist_to_target[current] + weight
-                    parent[node] = current
-        for e in nodes:
-            print(dist_to_target[e])  # print distance from target to the all nodes
-        x = start
-        path = []
-
-        while x:
-            path.append(x)
-            x = parent[x]
+                    parents[node] = current
         nodes = self.connections.get_nodes(start)  # From start to target
         max_dist = dist_to_target[start] * (1 + max_percentage / 100)
         best = defaultdict()
         self.get_gradient((0, 0), (0, 1))
         for e in nodes:
-            parent[e] = None
-        print(nodes)
-        test = defaultdict()
-        parent[start] = [Parent(start, 200, 0)]
+            parents[e] = None
+        parents[start] = [Node(start, None, 200, 0, 0)]
         for s in nodes:
             for tar, weight in g[s]:
+                distance = Data.calc_distance(s, tar)
                 gradient = self.get_gradient(s, tar)
-                if tar == start:
+                if parents[s] is None:
+                    pass
+                elif dist_to_target[tar] + parents[s][0].getDistance() + distance > max_dist:
+                    pass
+                elif tar == start:
                     pass
                 elif s == start:
-                    parent[tar] = [Parent(s, gradient, 0)]
+                    parents[tar] = [Node(tar, parents[start], gradient, 0, distance)]
                 else:
-                    turns = (parent[s][0].getTurns())
+                    turns = (parents[s][0].getTurns())
                     turns += 1
-                    for e in parent[s]:
+                    totalDistance = float("Inf")
+                    for e in parents[s]:
                         if e.getGradient() == gradient:
                             turns -= 1
-                            test[tar] = i
+                            totalDistance = e.getDistance() + distance
+                            bestNode = e
                             break
-                    if parent[tar] is None:
-                        parent[tar] = [Parent(s, gradient, turns)]
+                        elif totalDistance > e.getDistance() + distance:
+                            totalDistance = e.getDistance() + distance
+                            bestNode = e
+                    if parents[tar] is None:
+                        parents[tar] = [Node(tar, bestNode, gradient, turns, totalDistance)]
                     else:
-                        if turns < parent[tar][0].getTurns():
-                            parent[tar] = [Parent(s, gradient, turns)]
-                        elif turns == parent[tar][0].getTurns():
-                            parent[tar].append(Parent(s, gradient, turns))
-        print(parent)
-        cur = target
-        print(parent[cur][0].getTurns())
+                        if turns < parents[tar][0].getTurns():
+                            parents[tar] = [Node(tar, bestNode, gradient, turns, totalDistance)]
+                        elif turns == parents[tar][0].getTurns():
+                            parents[tar].append(Node(tar, bestNode, gradient, turns, totalDistance))
+        print(parents[target][0].getTurns())
+        cur = parents[target][0].getParent()
         result = []
-        print(test)
-        while parent[cur][0].getGradient() != 200:
-            if len(parent[cur]) > 1:
-                cur = parent[cur][test[cur]].getNode()
-            else:
-                cur = parent[cur][0].getNode()
-            result.append(cur)
-            print(cur)
+        result.append(target)
+        while type(cur) != list:
+            result.append(cur.getNode())
+            cur = cur.getParent()
         print(result)
-        self.data.draw_path(result)
-        self.data.finish()
+        result.append(start)
+        return result
 
 
-class Parent:
-    node = (0, 0)
-    gradient = 0
-    turns = 0
+class Node:
 
-    def __init__(self, node, gradient, turns):
+    def __init__(self, node, parent, gradient, turns, distance):
         self.node = node
+        self.parent = parent
         self.gradient = gradient
         self.turns = turns
+        self.distance = distance  # Distance from start
 
-    def getNode(self):
-        return self.node
+    def getParent(self):
+        return self.parent
 
     def getGradient(self):
         return self.gradient
@@ -224,9 +204,19 @@ class Parent:
     def getTurns(self):
         return self.turns
 
+    def getDistance(self):
+        return self.distance
 
-d = Data("Beispiel1.txt")
-d.connections.print()
+    def getNode(self):
+        return self.node
 
+
+d = Data("Beispiel2.txt")
+time1 = time.time()
 s = Solve(d)
-s.find_path(d.start, d.target, 15)
+result = s.find_path(d.start, d.target, 15)
+time2 = time.time()
+
+#d.draw_path(result)
+#d.finish()
+print('In ' + str(round((time2 - time1), 10) * 1000) + ' Milliseconds')
