@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="76400527-b43d-40d0-9e72-d8540f302612" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A1/Beispiel0.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A1/Beispiel1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A1/Beispiel2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A1/Beispiel3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A1/Beispiel4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A1/Beispiel5.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A1/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Aufgabe3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe3.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +22,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="872">
-              <caret line="165" column="21" selection-start-line="165" selection-start-column="21" selection-end-line="165" selection-end-column="21" />
+            <state relative-caret-position="858">
+              <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -60,10 +66,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1107" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1205" />
+    <option name="width" value="722" />
     <option name="height" value="1087" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -210,10 +215,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="1205" y="0" width="722" height="1087" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.06902002" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.13995726" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -274,18 +279,18 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SpeedTest.py" />
+    <entry file="file://$PROJECT_DIR$/Beispiel2.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="872">
-          <caret line="165" column="21" selection-start-line="165" selection-start-column="21" selection-end-line="165" selection-end-column="21" />
+        <state relative-caret-position="858">
+          <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Beispiel2.txt">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
