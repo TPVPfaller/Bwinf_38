@@ -32,7 +32,7 @@ class Data:
 
     def open_window(self):
         root = tk.Tk()
-        root.title("IDINA")
+        root.title("Aufgabe3")
         root.geometry("1200x1000+300+20")
         self.canvas = tk.Canvas(root, bg="white", height=1000, width=1200)
 
@@ -87,17 +87,18 @@ class Solve:
 
     @staticmethod
     def get_gradient(a, b):
-        if b[0] == a[0]:
+        if b[0] == a[0]:    # vertical
             if b[1] > a[1]:
                 return 100
             else:
                 return -100
         val = (b[1] - a[1]) / (b[0] - a[0])
-        if val == -0.0 or val == 0.0:
+        if val == -0.0 or val == 0.0:   # horizontal
             return 0
-        return (b[1] - a[1]) / (b[0] - a[0])
+        return val  # diagonally
 
-    def dijkstra(self, g, start, target):
+    @staticmethod
+    def dijkstra(graph, start, target):
         queue = [start]
         visited = set()
         distances = {start: 0}
@@ -106,11 +107,12 @@ class Solve:
             vertex1 = queue.pop(0)
             if vertex1 not in visited:
                 visited.add(vertex1)
-                for vertex2, w in g[vertex1]:
+                for vertex2, weight in graph[vertex1]:  # weight := distance between the two vertices
                     if vertex2 in visited:
                         continue
-                    if distances.get(vertex2, None) is None or distances.get(vertex1) + w < distances.get(vertex2):
-                        distances[vertex2] = distances.get(vertex1) + w
+                    # Updating distance if distance isn't set yet or the distance is shorter than the previous distance
+                    if distances.get(vertex2, None) is None or distances.get(vertex1) + weight < distances.get(vertex2):
+                        distances[vertex2] = distances.get(vertex1) + weight
                         parents[vertex2] = vertex1
                         queue.append(vertex2)
         path = []
@@ -121,24 +123,24 @@ class Solve:
         return distances, path
 
     def find_path(self, start, target, max_percentage):
-        g = self.connections.get_graph()
-        distances, shortest_path = self.dijkstra(g, target, start)
+        graph = self.connections.get_graph()
+        distances, shortest_path = self.dijkstra(graph, start=target, target=start)  # distances relative to target
         max_dist = distances[start] * (1 + max_percentage / 100)
 
         queue = [start]
         visited = set()
-
-        parents = {start: [Node(start, None, 200, 0, 0)]}
+        parents = {start: [Node(node=start, parent=None, gradient=200, turns=0, distance=0)]}
+        # dijkstra combined with finding least turns
         while queue:
             vertex1 = queue.pop(0)
-            for vertex2, weight in g[vertex1]:
+            for vertex2, weight in graph[vertex1]:
                 visited.add(vertex1)
                 gradient = self.get_gradient(vertex1, vertex2)
                 if vertex2 in visited:
                     continue
                 if distances[vertex2] + parents[vertex1][0].get_distance() + weight > max_dist:
                     continue
-                elif vertex1 == start:
+                if vertex1 == start:
                     parents[vertex2] = [Node(vertex2, parents[start], gradient, 0, weight)]
                     queue.append(vertex2)
                 else:
@@ -170,7 +172,7 @@ class Solve:
         # create path
         cur = parents[target][0].get_parent()
         path = [target]
-        while type(cur) != list:  # get the path
+        while type(cur) != list:
             path.append(cur.get_node())
             cur = cur.get_parent()
         print("Pfad:")
@@ -215,7 +217,7 @@ d = Data("Beispiel" + example + ".txt")
 s = Solve(d.connections)
 result = s.find_path(d.start, d.target, percent)
 
-print('In ' + str((time.time() - time1) / 1000) + ' Milliseconds')
+print('In ' + str((time.time() - time1) * 1000) + ' Milliseconds')
 
 # graphical output
 d.draw_path(result)
