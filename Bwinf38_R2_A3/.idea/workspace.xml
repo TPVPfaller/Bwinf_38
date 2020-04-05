@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/Beispiel4.txt" line="4" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="76400527-b43d-40d0-9e72-d8540f302612" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Beispiel4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Bwinf38_R2_A3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Bwinf38_R2_A3.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aufgabe3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/performanceTest.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,13 +22,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="165" column="16" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="16" />
+            <state relative-caret-position="-550">
+              <caret line="179" column="67" selection-start-line="179" selection-start-column="58" selection-end-line="179" selection-end-column="67" />
               <folding>
-                <element signature="e#1#12#0" expanded="true" />
-                <element signature="e#1260#1353#0" />
-                <element signature="e#2809#2849#0" />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Beispiel4.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -49,6 +61,8 @@
       <find>(6, 2)0</find>
       <find>(13, 0)</find>
       <find>(0, 3)</find>
+      <find>(5, 0)</find>
+      <find>(0, 5)</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -60,13 +74,14 @@
         <option value="$PROJECT_DIR$/CodingChallenge.py" />
         <option value="$PROJECT_DIR$/SpeedTest.py" />
         <option value="$PROJECT_DIR$/performanceTest.py" />
+        <option value="$PROJECT_DIR$/Beispiel4.txt" />
         <option value="$PROJECT_DIR$/Aufgabe3.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1205" />
-    <option name="width" value="722" />
+    <option name="x" value="-7" />
+    <option name="width" value="713" />
     <option name="height" value="1087" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -99,16 +114,16 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Anaconda/Scripts/conda.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Thomas Pfaller\PycharmProjects\Bwinf38_R2_A3" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Thomas Pfaller\Documents\GitHub\Repo\Bwinf\Bwinf38_R2_A3" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Thomas Pfaller\PycharmProjects\Bwinf38_R2_A3" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -131,7 +146,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\ThomasPfaller\Anaconda\envs\Bwinf38_R2_A3\python.exe" />
+      <option name="SDK_HOME" value="D:\Programs\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -236,16 +251,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09062171" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49867374" weight="0.18376069" />
+      <window_info id="Structure" order="1" sideWeight="0.50132626" side_tool="true" weight="0.09062171" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947312" visible="true" weight="0.24485373" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.5025961" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947312" visible="true" weight="0.32087228" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997923" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -302,15 +317,30 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="parents[]" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Anaconda/envs/BWINF/Lib/tkinter/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="2479" selection-start-line="2479" selection-end-line="2479" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Anaconda/envs/BWINF/Lib/tkinter/__init__.py" />
     <entry file="file://$PROJECT_DIR$/CodingChallenge.py" />
     <entry file="file://$PROJECT_DIR$/MainA1.py" />
     <entry file="file://$PROJECT_DIR$/Beispiel1.txt">
@@ -326,30 +356,26 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SpeedTest.py" />
-    <entry file="file://$PROJECT_DIR$/Beispiel2.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/performanceTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="49" lean-forward="true" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/performanceTest.py" />
     <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="165" column="16" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="16" />
+        <state relative-caret-position="-550">
+          <caret line="179" column="67" selection-start-line="179" selection-start-column="58" selection-end-line="179" selection-end-column="67" />
           <folding>
-            <element signature="e#1#12#0" expanded="true" />
-            <element signature="e#1260#1353#0" />
-            <element signature="e#2809#2849#0" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Beispiel4.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Beispiel2.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
