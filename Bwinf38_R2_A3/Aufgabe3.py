@@ -70,7 +70,6 @@ class Graph:
 
     def __init__(self):
         self.graph = defaultdict(list)
-        self.nodes = []
 
     def add_edge(self, u_tuple, v_tuple, w):
         self.graph[u_tuple].append((v_tuple, w))
@@ -80,130 +79,115 @@ class Graph:
         return self.graph
 
 
-class Solve:
-
-    def __init__(self, connections):
-        self.connections = connections
-
-    @staticmethod
-    def get_gradient(a, b):
-        if b[0] == a[0]:  # vertical
-            if b[1] > a[1]:
-                return float("Inf")
-            else:
-                return -float("Inf")
-        val = (b[1] - a[1]) / (b[0] - a[0])
-        if val == -0.0 or val == 0.0:  # horizontal
-            return 0
-        return val  # diagonally
-
-    @staticmethod
-    def get_min_dist(dist, queue):
-        minimum = float("Inf")
-        best = -1
+def find_best_path(graph, start, target, max_percentage):
+    distances, shortest_path = dijkstra(graph, start=target, target=start)  # distances relative to target
+    max_dist = distances[start] * (1 + max_percentage / 100)
+    queue = [start]
+    parents = {start: [Node(node=start, parent=None, gradient=200, turns=0, distance=0)]}
+    # dijkstra combined with finding least turns
+    count = 0
+    while queue:
+        min_turns = []
+        min_turn = float("Inf")
         for v in queue:
-            if dist[v] < minimum:
-                minimum = dist[v]
-                best = v
-        return best
-
-    def dijkstra(self, graph, start, target):
-        queue = [start]
-
-        visited = set()
-        distances = {start: 0}
-        parents = {start: None}
-        while queue:
-            vertex1 = self.get_min_dist(distances, queue)
-            queue.remove(vertex1)
-            if vertex1 not in visited:
-                visited.add(vertex1)
-                for vertex2, weight in graph[vertex1]:  # weight := distance between the two vertices
-                    if vertex2 in visited:
-                        continue
-                    # Updating distance if distance isn't set yet or the distance is shorter than the previous distance
-                    if distances.get(vertex2, None) is None or distances.get(vertex1) + weight < distances.get(vertex2):
-                        distances[vertex2] = distances.get(vertex1) + weight
-                        parents[vertex2] = vertex1
+            if parents[v][0].get_turns() <= min_turn:
+                min_turn = parents[v][0].get_turns()
+                min_turns.append(v)
+        max_distance = -1
+        for v in min_turns:
+            if distances[v] > max_distance:
+                max_distance = distances[v]
+                vertex1 = v
+        queue.remove(vertex1)
+        count += 1
+        for vertex2, weight in graph[vertex1]:
+            gradient = get_gradient(vertex1, vertex2)
+            if vertex1 == start:
+                parents[vertex2] = [Node(vertex2, parents[start], gradient, 0, weight)]
+                queue.append(vertex2)
+            else:
+                turns = (parents[vertex1][0].get_turns()) + 1
+                total_distance = float("Inf")
+                for e in parents[vertex1]:
+                    if e.get_gradient() == gradient and e.get_distance() + weight + distances[vertex2] <= max_dist:
+                        turns -= 1
+                        total_distance = e.get_distance() + weight
+                        best_node = e
+                        break
+                    elif total_distance > e.get_distance() + weight:
+                        total_distance = e.get_distance() + weight
+                        best_node = e
+                if best_node.get_distance() + weight + distances[vertex2] > max_dist:
+                    continue
+                elif vertex2 not in parents.keys():
+                    parents[vertex2] = [Node(vertex2, best_node, gradient, turns, total_distance)]
+                    if vertex2 != target and vertex2 not in queue:
                         queue.append(vertex2)
-        path = []
-        cur = target
-        while cur is not None:
-            path.append(cur)
-            cur = parents[cur]
-        return distances, path
-
-    # Erweiterung: Mehrere Ziele, die alle erreicht werden müssen
-
-    def find_path(self, data, start, target, max_percentage):
-        graph = self.connections.get_graph()
-        distances, shortest_path = self.dijkstra(graph, start=target, target=start)  # distances relative to target
-        max_dist = distances[start] * (1 + max_percentage / 100)
-        queue = [start]
-        parents = {start: [Node(node=start, parent=None, gradient=200, turns=0, distance=0)]}
-        # dijkstra combined with finding least turns
-        count = 0
-        while queue:
-            min_turns = []
-            min_turn = float("Inf")
-            for v in queue:
-                if parents[v][0].get_turns() <= min_turn:
-                    min_turn = parents[v][0].get_turns()
-                    min_turns.append(v)
-            max_distance = -1
-            for v in min_turns:
-                if distances[v] > max_distance:
-                    max_distance = distances[v]
-                    vertex1 = v
-            queue.remove(vertex1)
-            count += 1
-            for vertex2, weight in graph[vertex1]:
-                gradient = self.get_gradient(vertex1, vertex2)
-                if vertex1 == start:
-                    parents[vertex2] = [Node(vertex2, parents[start], gradient, 0, weight)]
-                    queue.append(vertex2)
                 else:
-                    turns = (parents[vertex1][0].get_turns()) + 1
-                    total_distance = float("Inf")
-                    for e in parents[vertex1]:
-                        if e.get_gradient() == gradient and e.get_distance() + weight + distances[vertex2] <= max_dist:
-                            turns -= 1
-                            total_distance = e.get_distance() + weight
-                            best_node = e
-                            break
-                        elif total_distance > e.get_distance() + weight:
-                            total_distance = e.get_distance() + weight
-                            best_node = e
-                    if best_node.get_distance() + weight + distances[vertex2] > max_dist:
-                        continue
-                    elif vertex2 not in parents.keys():
-                        parents[vertex2] = [Node(vertex2, best_node, gradient, turns, total_distance)]
+                    if turns == parents[vertex2][0].get_turns():
+                        parents[vertex2].append(Node(vertex2, best_node, gradient, turns, total_distance))
+                    elif turns < parents[vertex2][0].get_turns():
+                        parents[vertex2] = [(Node(vertex2, best_node, gradient, turns, total_distance))]
                         if vertex2 != target and vertex2 not in queue:
                             queue.append(vertex2)
-                    else:
-                        if turns == parents[vertex2][0].get_turns():
-                            parents[vertex2].append(Node(vertex2, best_node, gradient, turns, total_distance))
-                        elif turns < parents[vertex2][0].get_turns():
-                            parents[vertex2] = [(Node(vertex2, best_node, gradient, turns, total_distance))]
-                            if vertex2 != target and vertex2 not in queue:
-                                queue.append(vertex2)
-        # Output
-        print("Abbiegungen:")
-        print(parents[target][0].get_turns())
-        print("Distanz:")
-        print(str(parents[target][0].get_distance()) + " (" + str(round(
-            100 * parents[target][0].get_distance() / distances[start] - 100,
-            3)) + "% longer than the shortest path)")
-        # create path
-        cur = parents[target][0].get_parent()
-        path = [target]
-        while type(cur) != list:
-            path.append(cur.get_node())
-            cur = cur.get_parent()
-        path.append(start)
-        print("Pfad:")
-        print(path)
-        return path
+    # Output
+    print("Abbiegungen:")
+    print(parents[target][0].get_turns())
+    print("Distanz:")
+    print(str(parents[target][0].get_distance()) + " (" + str(round(
+        100 * parents[target][0].get_distance() / distances[start] - 100,
+        4)) + "% longer than the shortest path)")
+    # create path
+    cur = parents[target][0].get_parent()
+    path = [target]
+    while type(cur) != list:
+        path.append(cur.get_node())
+        cur = cur.get_parent()
+    path.append(start)
+    print("Pfad:")
+    print(path)
+    return path
+
+
+def get_gradient(a, b):
+    if b[0] == a[0]:  # vertical
+        if b[1] > a[1]:
+            return float("Inf")
+        else:
+            return -float("Inf")
+    val = (b[1] - a[1]) / (b[0] - a[0])
+    return val
+
+
+def dijkstra(graph, start, target):
+    queue = [start]
+    visited = set()
+    distances = {start: 0}
+    parents = {start: None}
+    while queue:
+        minimum = float("Inf")
+        for v in queue:
+            if distances[v] < minimum:
+                minimum = distances[v]
+                vertex1 = v
+        queue.remove(vertex1)
+        if vertex1 not in visited:
+            visited.add(vertex1)
+            for vertex2, weight in graph[vertex1]:  # weight := distance between the two vertices
+                if vertex2 in visited:
+                    continue
+                # Updating distance if distance isn't set yet or the distance is shorter than the previous distance
+                if distances.get(vertex2, None) is None or distances.get(vertex1) + weight < distances.get(vertex2):
+                    distances[vertex2] = distances.get(vertex1) + weight
+                    parents[vertex2] = vertex1
+                    queue.append(vertex2)
+    path = []
+    cur = target
+    while cur is not None:
+        path.append(cur)
+        cur = parents[cur]
+    return distances, path
+# Erweiterung: Mehrere Ziele, die alle erreicht werden müssen
 
 
 class Node:
@@ -237,10 +221,8 @@ print('Geben sie die maximale Verlängerung in Prozent an: ')
 percent = int(input())
 
 time1 = time.time()
-
 d = Data("Beispiel" + example + ".txt")
-s = Solve(d.connections)
-result = s.find_path(d, d.start, d.target, percent)
+result = find_best_path(d.connections.get_graph(), d.start, d.target, percent)
 
 print('In ' + str((time.time() - time1) * 1000) + ' Milliseconds (with file reading, without graphics)')
 
