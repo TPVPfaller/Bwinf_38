@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76400527-b43d-40d0-9e72-d8540f302612" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Beispiel4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Bwinf38_R2_A3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Bwinf38_R2_A3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aufgabe3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe3.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-550">
-              <caret line="179" column="67" selection-start-line="179" selection-start-column="58" selection-end-line="179" selection-end-column="67" />
+            <state relative-caret-position="215">
+              <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="8" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -357,15 +353,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SpeedTest.py" />
     <entry file="file://$PROJECT_DIR$/performanceTest.py" />
-    <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-550">
-          <caret line="179" column="67" selection-start-line="179" selection-start-column="58" selection-end-line="179" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/Beispiel2.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Beispiel4.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -374,8 +363,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Beispiel2.txt">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

@@ -188,56 +188,22 @@ class Solve:
                             if vertex2 != target and vertex2 not in queue:
                                 queue.append(vertex2)
         # Output
-        print(len(parents[target]))
-        shortest = float("Inf")
-        for i, e in enumerate(parents[target]):
-            if e.get_distance() < shortest:
-                shortest = e.get_distance()
-                index = i
-
         print("Abbiegungen:")
-        print(parents[target][index].get_turns())
+        print(parents[target][0].get_turns())
         print("Distanz:")
-        print(str(parents[target][index].get_distance()) + " (" + str(round(
-            100 * parents[target][index].get_distance() / distances[start] - 100, 3)) + "% longer than the shortest path)")
+        print(str(parents[target][0].get_distance()) + " (" + str(round(
+            100 * parents[target][0].get_distance() / distances[start] - 100,
+            3)) + "% longer than the shortest path)")
         # create path
-        cur = parents[target][index].get_parent()
+        cur = parents[target][0].get_parent()
         path = [target]
         while type(cur) != list:
             path.append(cur.get_node())
             cur = cur.get_parent()
+        path.append(start)
         print("Pfad:")
         print(path)
-        path.append(start)
         return path
-
-    # def show_maximal_graph(self, data, start, graph, distances, max_dist):
-    #     queue = [start]
-    #     visited = set()
-    #     result = Graph()
-    #     cost = {start: 0}
-    #     parents = {start: None}
-    #     while queue:
-    #         vertex1 = self.get_min_dist(cost, queue)
-    #         queue.remove(vertex1)
-    #         if vertex1 not in visited:
-    #             visited.add(vertex1)
-    #             for vertex2, weight in graph[vertex1]:  # weight := distance between the two vertices
-    #                 if vertex2 in visited:
-    #                     continue
-    #                 # Updating distance if distance isn't set yet or the distance is shorter than the previous distance
-    #                 if cost.get(vertex2, None) is None or cost.get(vertex1) + weight < cost.get(vertex2):
-    #                     cost[vertex2] = cost.get(vertex1) + weight
-    #                     parents[vertex2] = vertex1
-    #                     queue.append(vertex2)
-    #
-    #     for v1 in graph.keys():
-    #         for v2, weight in graph[v1]:
-    #             if v1 in cost:
-    #                 if cost.get(v1, None) + distances[v2] + weight <= max_dist:
-    #                     result.add_edge(v1, v2, weight)
-    #
-    #     return result.get_graph()
 
 
 class Node:
