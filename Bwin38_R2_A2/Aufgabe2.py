@@ -44,12 +44,15 @@ def create_numbers(target_number, digit, operations):
     rows = [[Expression(None, digit, None, None)]]
     rows[0].append(Expression('!', factorial(digit), rows[0][0], None))
     n = 1
+    maximum = 10**9
     found_numbers = set()
     found_numbers.add(digit)
     found_numbers.add(factorial(digit))
     while target_number not in found_numbers:
         rows.append([Expression(None, rows[n - 1][0].get_number() * 10 + digit, None, None)])
+        rows[-1].append(Expression('/', 1, rows[0][0], rows[0][0]))
         found_numbers.add(rows[n - 1][0].get_number() * 10 + digit)
+        found_numbers.add(1)
         for e in rows[n - 1]:
             result = e.get_number()
             count = 0
@@ -66,36 +69,42 @@ def create_numbers(target_number, digit, operations):
                     break
         n1 = 0
         n2 = n - 1
+        r = []
         while not n2 < n1:
             for i in rows[n1]:
                 for j in rows[n2]:
                     for k in operations:
                         reversed = False
                         calc = True
+                        num1 = i.get_number()
+                        num2 = j.get_number()
+
                         if k == '+':
-                            result = i + j
+                            result = num1 + num2
                         elif k == '-':
-                            if i.get_number() > j.get_number():
-                                result = i - j
-                            elif j.get_number() > i.get_number():
-                                result = j - i
+                            if num1 > num2:
+                                result = num1 - num2
+                            elif num2 > num1:
+                                result = num2 - num1
                                 reversed = True
                         elif k == '*':
-                            result = i * j
+                            result = num1 * num2
+                            if result > maximum:
+                                continue
                         elif k == '/':
-                            if i.get_number() > j.get_number():
-                                result = i / j
-                            elif i.get_number() < j.get_number():
-                                result = j / i
+                            if num1 > num2:
+                                result = num1 / num2
+                            elif num1 < num2:
+                                result = num2 / num1
                                 reversed = True
                             else:
-                                result = 1
+                                continue
                             if result % 1 == 0:
                                 result = int(result)
                         elif k == '^':
                             result = 1
-                            p = j.get_number()
-                            b = i.get_number()
+                            p = num2
+                            b = num1
                             if p < 9 and b < 10:
                                 while p:
                                     if p & 0x1:
@@ -113,12 +122,17 @@ def create_numbers(target_number, digit, operations):
                             else:
                                 rows[n].append(Expression(k, result, i, j))
                             found_numbers.add(result)
+                        #else:
+                        #    r.append(result)
                         if result == target_number:
                             print("Number of Digits:")
                             print(len(rows))
                             return rows[n][-1]
             n1 += 1
             n2 -= 1
+        #print("n = " + str(n) + ":")
+        r.sort()
+        #print(r)
         n += 1
 
 
@@ -144,14 +158,15 @@ def get_term(a, operator, b):
 
 print("Geben sie die zu berechnende Jahreszahl ein:")
 target_number = int(input())
-print("Geben sie eine Ziffer ein:")
-digit = int(input())
+#print("Geben sie eine Ziffer ein:")
+#digit = int(input())
 count = 1
 time1 = timer()
-if target_number == digit:
-    print(target_number)
+#if target_number == digit:
+#    print(target_number)
 
 operations = ['^', '+', '-', '*', '/']
-res = create_numbers(target_number, digit, operations)
-print(get_term(res.child1, res.operator, res.child2))
-print("Took " + str(((timer() - time1) * 1000) / count) + " Milliseconds")
+for digit in range(8,9):
+    res = create_numbers(target_number, digit, operations)
+    print(get_term(res.child1, res.operator, res.child2))
+print("In " + str(((timer() - time1)) / count) + " Sekunden")

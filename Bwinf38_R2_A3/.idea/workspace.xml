@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76400527-b43d-40d0-9e72-d8540f302612" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/Bwin38_R2_A2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A1/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A1/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -94,8 +87,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="width" value="1011" />
+    <option name="x" value="933" />
+    <option name="width" value="994" />
     <option name="height" value="1087" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -266,7 +259,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49867374" visible="true" weight="0.18335089" />
       <window_info id="Structure" order="1" sideWeight="0.50132626" side_tool="true" weight="0.09062171" />
