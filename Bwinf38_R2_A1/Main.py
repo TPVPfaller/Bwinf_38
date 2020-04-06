@@ -49,7 +49,7 @@ def manhattan_distance(x, y):
 for v1 in vertices:
     for v2 in vertices:
         if manhattan_distance((v1[0], v1[1]), (v2[0], v2[1])) <= v1[2] and v1 != v2:
-            graph.add_edge((v1[0], v1[1]), (v2[0], v2[1]), v1[2])
+            graph.add_edge((v1[0], v1[1]), (v2[0], v2[1]), manhattan_distance((v1[0], v1[1]), (v2[0], v2[1])))
 
 
 def is_connected():
