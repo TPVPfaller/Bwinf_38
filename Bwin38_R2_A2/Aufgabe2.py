@@ -92,12 +92,16 @@ def create_numbers(target_number, digit, operations):
                             if result > maximum:
                                 continue
                         elif k == '/':
+                            if num1 == 1 or num2 == 1:
+                                continue
                             if num1 > num2:
                                 result = num1 / num2
                             elif num1 < num2:
                                 result = num2 / num1
                                 reversed = True
                             else:
+                                continue
+                            if result > maximum:
                                 continue
                             if result % 1 == 0:
                                 result = int(result)
@@ -130,7 +134,11 @@ def create_numbers(target_number, digit, operations):
                             return rows[n][-1]
             n1 += 1
             n2 -= 1
+            if n2 == n - 3 and n1 != n2:
+                break
+
         #print("n = " + str(n) + ":")
+
         r.sort()
         #print(r)
         n += 1
@@ -166,7 +174,7 @@ time1 = timer()
 #    print(target_number)
 
 operations = ['^', '+', '-', '*', '/']
-for digit in range(8,9):
+for digit in range(1, 10):
     res = create_numbers(target_number, digit, operations)
     print(get_term(res.child1, res.operator, res.child2))
 print("In " + str(((timer() - time1)) / count) + " Sekunden")
