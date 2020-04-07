@@ -34,14 +34,25 @@ class Expression:
 def create_numbers(target_number, digit, operations):
     found_numbers = set()
     rows = [[Expression(None, digit, None, None, True)]]
-    found_numbers.add(digit)
     if digit < 14:
         result = math.factorial(digit)
         rows[0].append(Expression('!', result, rows[0][0], None))
         found_numbers.add(result)
+        if result == target_number:
+            print("Number of Digits:")
+            print(len(rows))
+            return rows[0][1]
+    found_numbers.add(digit)
+    if rows[0][0].get_number() == target_number:
+        print("Number of Digits:")
+        print(len(rows))
+        return rows[0][0]
     n = 1
-    maximum = 10**12
-    while n < 40:
+    exponent = 6
+    if digit > 9:
+        exponent = 12
+    maximum = 10**exponent    # Performance depends on this number
+    while n <= 40:
         if rows[n-1][0].is_digit:
             result = int(str(rows[n - 1][0].get_number()) + str(digit))
             if result < maximum:
@@ -60,22 +71,17 @@ def create_numbers(target_number, digit, operations):
             if result <= 2:
                 continue
             count = 0
-            while result < 10:
+            while result <= 10:
                 result = math.factorial(result)
-
-                if isinstance(result, int) and result not in found_numbers:
+                if result not in found_numbers:
                     if count > 0:
                         rows[n-1].append(Expression('!', result, rows[n-1][-1], None))
                     else:
                         rows[n-1].append(Expression('!', result, e, None))
                     if result == target_number:
-                        print("TEST")
                         print("Number of Digits:")
                         print(len(rows) - 1)
-
                         return rows[n-1][-1]
-                if result <= 2:
-                    break
                 count += 1
         n1 = 0
         n2 = n - 1
@@ -84,10 +90,8 @@ def create_numbers(target_number, digit, operations):
                 for j in rows[n2]:
                     for k in operations:
                         reversed = False
-                        calc = True
                         num1 = i.get_number()
                         num2 = j.get_number()
-
                         if k == '+':
                             result = num1 + num2
                             if result > maximum:
@@ -98,12 +102,14 @@ def create_numbers(target_number, digit, operations):
                             elif num2 > num1:
                                 result = num2 - num1
                                 reversed = True
+                            else:
+                                continue
                         elif k == '*':
                             result = num1 * num2
                             if result > maximum:
                                 continue
                         elif k == '/':
-                            if num1 == 1 or num2 == 1:
+                            if num1 <= 1 or num2 <= 1:
                                 continue
                             if num1 > num2:
                                 result = num1 / num2
@@ -114,6 +120,8 @@ def create_numbers(target_number, digit, operations):
                                 continue
                             if result % 1 == 0:
                                 result = int(result)
+                            else:
+                                continue
                         elif k == '^':
                             result = 1
                             p = num2
@@ -125,28 +133,26 @@ def create_numbers(target_number, digit, operations):
                                     b *= b
                                     p >>= 1
                                     if b > maximum:
-                                        calc = False
                                         break
+                                if result > maximum:
+                                    continue
                             else:
-                                calc = False
-
-                        if result not in found_numbers and isinstance(result, int) and result < maximum and calc:
+                                continue
+                        if result not in found_numbers:
                             if reversed:
                                 rows[n].append(Expression(k, result, j, i))
                             else:
                                 rows[n].append(Expression(k, result, i, j))
                             found_numbers.add(result)
-                        if result == target_number:
-                            print("Number of Digits:")
-                            print(len(rows))
-                            return rows[n][-1]
+                            if result == target_number:
+                                print("Number of Digits:")
+                                print(len(rows))
+                                return rows[n][-1]
             n1 += 1
             n2 -= 1
-            #if n2 == n - 3 and n2 != n1:
-                #print(n, n1, n2)
-                #break
         n += 1
-    print("SSSSSS")
+    print("Program interrupted because number of combinated digtis is greater than 40")
+
 
 def get_term(a, operator, b):
 
@@ -180,15 +186,15 @@ print("Geben Sie die zu berechnende Jahreszahl ein:")
 target_number = int(input())
 print("Geben sie eine Ziffer ein:")
 digit = int(input())
-
+time1 = timer()
 #for digit in range(1, 10):
 if digit == target_number or len(re.findall(str(digit), str(target_number))) == (len(str(target_number)) / (len(str(digit)))):
+    print(target_number)
     print("Number of Digits:")
     print(int(len(str(target_number)) / (len(str(digit)))))
 else:
-    time1 = timer()
-    operations = ['^', '+', '-', '*', '/']
-
+    operations = ['^', '/', '*', '+', '-']
     res = create_numbers(target_number, digit, operations)
     print(get_term(res.child1, res.operator, res.child2))
-    print("In " + str(((timer() - time1))) + " Sekunden")
+
+print("In " + str(((timer() - time1))) + " Sekunden")
