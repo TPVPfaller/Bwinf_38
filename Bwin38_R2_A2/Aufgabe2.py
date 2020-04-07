@@ -35,30 +35,41 @@ class Expression:
 
 def create_numbers(target_number, digit, operations):
     rows = [[Expression(None, digit, None, None)]]
-    rows[0].append(Expression('!', math.factorial(digit), rows[0][0], None))
-    n = 1
-    maximum = 10**9
     found_numbers = set()
+    if digit < 14:
+        result = math.factorial(digit)
+        rows[0].append(Expression('!', result, rows[0][0], None))
+        found_numbers.add(result)
+    n = 1
+    maximum = 10**10
     found_numbers.add(digit)
-    found_numbers.add(math.factorial(digit))
     while n < 40:
-        rows.append([Expression(None, int(str(rows[n - 1][0].get_number()) + str(digit)), None, None)])
-        rows[-1].append(Expression('/', 1, rows[0][0], rows[0][0]))
-        found_numbers.add(rows[n - 1][0].get_number() * 10 + digit)
-        found_numbers.add(1)
+        result = int(str(rows[n - 1][0].get_number()) + str(digit))
+        if result < maximum:
+            rows.append([Expression(None, result, None, None)])
+            found_numbers.add(result)
+        else:
+            rows.append([])
+        if n == 2 and digit != 1:
+            rows[-1].append(Expression('/', 1, rows[0][0], rows[0][0]))
+            found_numbers.add(1)
+
         for e in rows[n - 1]:
             result = e.get_number()
+            if result <= 2:
+                continue
             count = 0
             while result < 10:
                 result = math.factorial(result)
-                if isinstance(result, int) and result > 0 and result not in found_numbers:
-                    if count > 0:
-                        rows[n - 1].append(Expression('!', result, rows[n-1][-1], None))
-                    else:
-                        rows[n-1].append(Expression('!', result, e, None))
-                    found_numbers.add(result)
-                if result <= 2:
+                if result > maximum:
                     break
+                if isinstance(result, int) and result not in found_numbers:
+
+                    if result == target_number:
+                        print("Number of Digits:")
+                        print(len(rows) - 1)
+                        return rows[n-1][-1]
+
                 count += 1
         n1 = 0
         n2 = n - 1
@@ -70,7 +81,8 @@ def create_numbers(target_number, digit, operations):
                         calc = True
                         num1 = i.get_number()
                         num2 = j.get_number()
-
+                        if num1 > maximum or num2 > maximum:
+                            print(num1, num2)
                         if k == '+':
                             result = num1 + num2
                             if result > maximum:
@@ -86,7 +98,7 @@ def create_numbers(target_number, digit, operations):
                             if result > maximum:
                                 continue
                         elif k == '/':
-                            if num1 == 1 or num2 == 1:
+                            if num1 <= 1 or num2 <= 1:
                                 continue
                             if num1 > num2:
                                 result = num1 / num2
@@ -95,25 +107,25 @@ def create_numbers(target_number, digit, operations):
                                 reversed = True
                             else:
                                 continue
-
                             if result % 1 == 0:
                                 result = int(result)
                         elif k == '^':
                             result = 1
                             p = num2
                             b = num1
-                            if p < 10 and b < 10:
+                            if p < 12 and b < 12:
                                 while p:
                                     if p & 0x1:
                                         result *= b
                                     b *= b
                                     p >>= 1
-                                    if result > sys.maxsize:
+                                    if b > maximum:
                                         calc = False
                                         break
                             else:
                                 calc = False
-                        if result not in found_numbers and isinstance(result, int) and calc:
+
+                        if result not in found_numbers and isinstance(result, int) and result < maximum and calc:
                             if reversed:
                                 rows[n].append(Expression(k, result, j, i))
                             else:
@@ -125,7 +137,7 @@ def create_numbers(target_number, digit, operations):
                             return rows[n][-1]
             n1 += 1
             n2 -= 1
-            if n2 == n - 3:
+            if n2 == n - 3 and n1 == n2:
                 break
         n += 1
 
@@ -160,7 +172,7 @@ target_number = int(input())
 print("Geben sie eine Ziffer ein:")
 digit = int(input())
 count = 1
-if (set(str(target_number))) == set(str(digit)) and len(set(str(target_number))) == 1:
+if digit == target_number or ((set(str(target_number))) == set(str(digit)) and len(set(str(target_number))) == 1):
     print(target_number)
 else:
     time1 = timer()
