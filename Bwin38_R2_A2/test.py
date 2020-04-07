@@ -1,22 +1,24 @@
 from timeit import default_timer as timer
-import re
+import sys
 import math
-
 
 class Expression:
 
-    def __init__(self, operator, number, child1, child2, is_digit=False):
+    def __init__(self, operator, number, child1, child2):
         self.operator = operator
         self.number = number
         self.child1 = child1
         self.child2 = child2
-        self.is_digit = is_digit
 
     def get_number(self):
         return self.number
 
     def get_operator(self):
         return self.operator
+
+    def same_digits(self):
+        #print(''.join(set(str(self.number))))
+        return (set(str(self.number))) == set(str(digit)) and len(set(str(self.number))) == len(set(str(digit)))
 
     def __add__(self, other):
         return self.number + other.number
@@ -32,29 +34,26 @@ class Expression:
 
 
 def create_numbers(target_number, digit, operations):
+    rows = [[Expression(None, digit, None, None)]]
     found_numbers = set()
-    rows = [[Expression(None, digit, None, None, True)]]
-    found_numbers.add(digit)
     if digit < 14:
         result = math.factorial(digit)
         rows[0].append(Expression('!', result, rows[0][0], None))
         found_numbers.add(result)
     n = 1
-    maximum = 10**12
+    maximum = 10**10
+    found_numbers.add(digit)
     while n < 40:
-        if rows[n-1][0].is_digit:
-            result = int(str(rows[n - 1][0].get_number()) + str(digit))
-            if result < maximum:
-                rows.append([Expression(None, result, None, None, True)])
-                found_numbers.add(result)
-            else:
-                rows.append([])
+        result = int(str(rows[n - 1][0].get_number()) + str(digit))
+        if result < maximum:
+            rows.append([Expression(None, result, None, None)])
+            found_numbers.add(result)
         else:
             rows.append([])
-
-        if n == 1 and digit != 1:
+        if n == 2 and digit != 1:
             rows[-1].append(Expression('/', 1, rows[0][0], rows[0][0]))
             found_numbers.add(1)
+
         for e in rows[n - 1]:
             result = e.get_number()
             if result <= 2:
@@ -62,20 +61,15 @@ def create_numbers(target_number, digit, operations):
             count = 0
             while result < 10:
                 result = math.factorial(result)
-
+                if result > maximum:
+                    break
                 if isinstance(result, int) and result not in found_numbers:
-                    if count > 0:
-                        rows[n-1].append(Expression('!', result, rows[n-1][-1], None))
-                    else:
-                        rows[n-1].append(Expression('!', result, e, None))
+
                     if result == target_number:
-                        print("TEST")
                         print("Number of Digits:")
                         print(len(rows) - 1)
-
                         return rows[n-1][-1]
-                if result <= 2:
-                    break
+
                 count += 1
         n1 = 0
         n2 = n - 1
@@ -87,7 +81,8 @@ def create_numbers(target_number, digit, operations):
                         calc = True
                         num1 = i.get_number()
                         num2 = j.get_number()
-
+                        if num1 > maximum or num2 > maximum:
+                            print(num1, num2)
                         if k == '+':
                             result = num1 + num2
                             if result > maximum:
@@ -103,7 +98,7 @@ def create_numbers(target_number, digit, operations):
                             if result > maximum:
                                 continue
                         elif k == '/':
-                            if num1 == 1 or num2 == 1:
+                            if num1 <= 1 or num2 <= 1:
                                 continue
                             if num1 > num2:
                                 result = num1 / num2
@@ -142,37 +137,33 @@ def create_numbers(target_number, digit, operations):
                             return rows[n][-1]
             n1 += 1
             n2 -= 1
-            #if n2 == n - 3 and n2 != n1:
-                #print(n, n1, n2)
-                #break
+            if n2 == n - 3 and n1 == n2:
+                break
         n += 1
-    print("SSSSSS")
+
 
 def get_term(a, operator, b):
 
-    if a.get_number() == 1100000:
-        print(operator)
-
-    if operator == '!' and (a.get_number() == digit or a.is_digit):
+    if operator == '!' and (a.get_number() == digit or a.same_digits()):
         return '(' + str(a.get_number()) + '!)'
 
-    if operator == '!' and a.get_number() != digit and not a.is_digit:
+    if operator == '!' and a.get_number() != digit and not a.same_digits():
         return '(' + get_term(a.child1, a.get_operator(), a.child2) + '!)'
-    #print(a.is_digit, a.get_number(), b.is_digit(), b.get_number())
+    #print(a.same_digits, a.get_number(), b.same_digits(), b.get_number())
 
     #if not a:
     #    print("NONE")
 
-    if (a.get_number() == digit or a.is_digit) and b.get_number() != digit and not b.is_digit:
+    if (a.get_number() == digit or a.same_digits()) and b.get_number() != digit and not b.same_digits():
         return '(' + str(a.get_number()) + operator + get_term(b.child1, b.get_operator(), b.child2) + ')'
 
-    if (b.get_number() == digit or b.is_digit) and a.get_number() != digit and not a.is_digit:
+    if (b.get_number() == digit or b.same_digits()) and a.get_number() != digit and not a.same_digits():
         return '(' + get_term(a.child1, a.get_operator(), a.child2) + operator + str(b.get_number()) + ')'
 
-    if b.get_number() != digit and not b.is_digit and a.get_number() != digit and not a.is_digit:
+    if b.get_number() != digit and not b.same_digits() and a.get_number() != digit and not a.same_digits():
         return '(' + get_term(a.child1, a.get_operator(), a.child2) + operator + get_term(b.child1, b.get_operator(),
                                                                                           b.child2) + ')'
-    if (b.get_number() == digit or b.is_digit) and (a.get_number() == digit or a.is_digit):
+    if (b.get_number() == digit or b.same_digits()) and (a.get_number() == digit or a.same_digits()):
         return '(' + str(a.get_number()) + operator + str(b.get_number()) + ')'
 
 
@@ -180,15 +171,13 @@ print("Geben Sie die zu berechnende Jahreszahl ein:")
 target_number = int(input())
 print("Geben sie eine Ziffer ein:")
 digit = int(input())
-
-#for digit in range(1, 10):
-if digit == target_number or len(re.findall(str(digit), str(target_number))) == (len(str(target_number)) / (len(str(digit)))):
-    print("Number of Digits:")
-    print(int(len(str(target_number)) / (len(str(digit)))))
+count = 1
+if digit == target_number or ((set(str(target_number))) == set(str(digit)) and len(set(str(target_number))) == 1):
+    print(target_number)
 else:
     time1 = timer()
     operations = ['^', '+', '-', '*', '/']
-
+    #for digit in range(1, 10):
     res = create_numbers(target_number, digit, operations)
     print(get_term(res.child1, res.operator, res.child2))
-    print("In " + str(((timer() - time1))) + " Sekunden")
+    print("In " + str(((timer() - time1)) / count) + " Sekunden")
