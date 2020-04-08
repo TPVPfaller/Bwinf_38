@@ -52,7 +52,7 @@ def create_numbers(target_number, digit, operations):
     if digit > 9:
         exponent = 12
     maximum = 10**exponent    # Performance depends on this number
-    while n <= 40:
+    while n <= 30:
         if rows[n-1][0].is_digit:
             result = int(str(rows[n - 1][0].get_number()) + str(digit))
             if result < maximum:
@@ -70,11 +70,11 @@ def create_numbers(target_number, digit, operations):
             result = e.get_number()
             if result <= 2:
                 continue
-            count = 0
+            count = False
             while result <= 10:
                 result = math.factorial(result)
                 if result not in found_numbers:
-                    if count > 0:
+                    if count:
                         rows[n-1].append(Expression('!', result, rows[n-1][-1], None))
                     else:
                         rows[n-1].append(Expression('!', result, e, None))
@@ -82,7 +82,7 @@ def create_numbers(target_number, digit, operations):
                         print("Number of Digits:")
                         print(len(rows) - 1)
                         return rows[n-1][-1]
-                count += 1
+                count = True
         n1 = 0
         n2 = n - 1
         while not n2 < n1:
@@ -151,23 +151,16 @@ def create_numbers(target_number, digit, operations):
             n1 += 1
             n2 -= 1
         n += 1
-    print("Program interrupted because number of combinated digtis is greater than 40")
+    print("Program interrupted because number of combinated digtis is greater than 30")
 
 
 def get_term(a, operator, b):
-
-    if a.get_number() == 1100000:
-        print(operator)
 
     if operator == '!' and (a.get_number() == digit or a.is_digit):
         return '(' + str(a.get_number()) + '!)'
 
     if operator == '!' and a.get_number() != digit and not a.is_digit:
         return '(' + get_term(a.child1, a.get_operator(), a.child2) + '!)'
-    #print(a.is_digit, a.get_number(), b.is_digit(), b.get_number())
-
-    #if not a:
-    #    print("NONE")
 
     if (a.get_number() == digit or a.is_digit) and b.get_number() != digit and not b.is_digit:
         return '(' + str(a.get_number()) + operator + get_term(b.child1, b.get_operator(), b.child2) + ')'
@@ -187,11 +180,11 @@ target_number = int(input())
 print("Geben sie eine Ziffer ein:")
 digit = int(input())
 time1 = timer()
-#for digit in range(1, 10):
+
 if digit == target_number or len(re.findall(str(digit), str(target_number))) == (len(str(target_number)) / (len(str(digit)))):
-    print(target_number)
     print("Number of Digits:")
     print(int(len(str(target_number)) / (len(str(digit)))))
+    print(target_number)
 else:
     operations = ['^', '/', '*', '+', '-']
     res = create_numbers(target_number, digit, operations)

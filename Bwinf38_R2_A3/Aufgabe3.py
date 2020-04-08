@@ -33,22 +33,22 @@ class Data:
     def open_window(self):
         root = tk.Tk()
         root.title("Aufgabe3")
-        root.geometry("1200x1000+300+20")
-        self.canvas = tk.Canvas(root, bg="white", height=1000, width=1200)
+        root.geometry("1200x800+0+0")
+        self.canvas = tk.Canvas(root, bg="white", height=800, width=1200)
 
     def draw_edge(self, tuple2, tuple1, color):
-        self.canvas.create_line(100 + tuple1[0] * 70 + 5, 900 - tuple1[1] * 70 + 5, 100 + tuple2[0] * 70 + 5,
-                                900 - tuple2[1] * 70 + 5, fill=color, width=5)
-        self.canvas.create_oval(100 + tuple1[0] * 70, 900 - tuple1[1] * 70, 100 + tuple1[0] * 70 + 10,
-                                900 - tuple1[1] * 70 + 10, fill="red")
-        self.canvas.create_oval(100 + tuple2[0] * 70, 900 - tuple2[1] * 70, 100 + tuple2[0] * 70 + 10,
-                                900 - tuple2[1] * 70 + 10, fill="red")
+
+        self.canvas.create_line(50 + tuple1[0] * 70 + 5, 550 - tuple1[1] * 70 + 5, 50 + tuple2[0] * 70 + 5, 550 - tuple2[1] * 70 + 5, fill=color, width=5)
+        self.canvas.create_oval(50 + tuple1[0] * 70, 550 - tuple1[1] * 70, 50 + tuple1[0] * 70 + 10,
+                                550 - tuple1[1] * 70 + 10, fill="red")
+        self.canvas.create_oval(50 + tuple2[0] * 70, 550 - tuple2[1] * 70, 50 + tuple2[0] * 70 + 10,
+                                550 - tuple2[1] * 70 + 10, fill="red")
         if tuple1 == self.start or tuple1 == self.target:
-            self.canvas.create_oval(100 + tuple1[0] * 70, 900 - tuple1[1] * 70, 100 + tuple1[0] * 70 + 10,
-                                    900 - tuple1[1] * 70 + 10, fill="blue")
+            self.canvas.create_oval(50 + tuple1[0] * 70, 550 - tuple1[1] * 70, 50 + tuple1[0] * 70 + 10,
+                                    550 - tuple1[1] * 70 + 10, fill="blue")
         if tuple2 == self.start or tuple2 == self.target:
-            self.canvas.create_oval(100 + tuple2[0] * 70, 900 - tuple2[1] * 70, 100 + tuple2[0] * 70 + 10,
-                                    900 - tuple2[1] * 70 + 10, fill="blue")
+            self.canvas.create_oval(50 + tuple2[0] * 70, 550 - tuple2[1] * 70, 50 + tuple2[0] * 70 + 10,
+                                    550 - tuple2[1] * 70 + 10, fill="blue")
 
     def draw_path(self, path):
         self.open_window()
