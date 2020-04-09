@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76400527-b43d-40d0-9e72-d8540f302612" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2a.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2b.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2a.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2a.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2b.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/test.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -95,7 +94,7 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
-    <option name="width" value="974" />
+    <option name="width" value="994" />
     <option name="height" value="1087" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
