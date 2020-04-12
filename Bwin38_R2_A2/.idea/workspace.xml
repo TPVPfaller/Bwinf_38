@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="029389af-54c3-415d-b655-35824a8bfcc8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel6.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/TSP.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aufgabe2a.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe2a.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe2b.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/Aufgabe3.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Aufgabe3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel5.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Aufgabe2a.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="202" lean-forward="true" selection-start-line="202" selection-end-line="202" />
+            <state relative-caret-position="3638">
+              <caret line="216" column="37" selection-start-line="216" selection-start-column="37" selection-end-line="216" selection-end-column="37" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -27,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Aufgabe2b.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="279" column="39" selection-start-line="279" selection-start-column="39" selection-end-line="279" selection-end-column="39" />
+            <state relative-caret-position="872">
+              <caret line="70" column="42" selection-start-line="70" selection-start-column="42" selection-end-line="70" selection-end-column="42" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -63,14 +68,14 @@
       <list>
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Aufgabe2.py" />
-        <option value="$PROJECT_DIR$/Aufgabe2b.py" />
         <option value="$PROJECT_DIR$/Aufgabe2a.py" />
+        <option value="$PROJECT_DIR$/Aufgabe2b.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
-    <option name="width" value="994" />
+    <option name="width" value="974" />
     <option name="height" value="1087" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -79,6 +84,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -90,12 +96,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Bwinf38_R2_A3" />
+    <property name="last_opened_file_path" value="$USER_HOME$/PycharmProjects/NeuralNetwork" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -196,8 +201,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Aufgabe2b" />
         <item itemvalue="Python.Aufgabe2a" />
+        <item itemvalue="Python.Aufgabe2b" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.Aufgabe2" />
       </list>
@@ -226,10 +231,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="994" height="1087" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1746862" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.043203373" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.32917964" />
@@ -238,7 +243,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Terminal" order="5" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.3427673" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.298027" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39937106" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -289,10 +294,11 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test.py">
+    <entry file="file://$PROJECT_DIR$/test.py" />
+    <entry file="file://$PROJECT_DIR$/Aufgabe2a.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="117" column="22" lean-forward="true" selection-start-line="117" selection-start-column="22" selection-end-line="117" selection-end-column="22" />
+        <state relative-caret-position="3638">
+          <caret line="216" column="37" selection-start-line="216" selection-start-column="37" selection-end-line="216" selection-end-column="37" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -301,18 +307,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Aufgabe2b.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="279" column="39" selection-start-line="279" selection-start-column="39" selection-end-line="279" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Aufgabe2a.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="202" lean-forward="true" selection-start-line="202" selection-end-line="202" />
+        <state relative-caret-position="872">
+          <caret line="70" column="42" selection-start-line="70" selection-start-column="42" selection-end-line="70" selection-end-column="42" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

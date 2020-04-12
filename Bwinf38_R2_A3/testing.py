@@ -3,27 +3,37 @@ import math
 import re
 import tkinter as tk
 from collections import defaultdict
-
+from itertools import permutations
 
 class Data:
 
     def __init__(self, name):
         file = open(name, "r")
         self.connections = Graph()
+        switch = True
+        self.targets = []
         for line, val in enumerate(file.read().split()):
-            if line == 1:
-                x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
-                self.start = (int(x.group("part1")), int(x.group("part2")))
+            if line == 0:
+                continue
+            elif line == 1:
+                self.target_count = int(val)
             elif line == 2:
                 x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
-                self.target = (int(x.group("part1")), int(x.group("part2")))
-            elif line > 2 and line % 2:
+                self.start = (int(x.group("part1")), int(x.group("part2")))
+            elif line <= 2 + self.target_count:
+                x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
+                self.targets.append((int(x.group("part1")), int(x.group("part2"))))
+            elif line > 2 + self.target_count and switch:
                 x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
                 pos1 = (int(x.group("part1")), int(x.group("part2")))
-            elif line > 2:
+                switch = False
+            elif line > 2 + self.target_count:
                 x = re.search("(?P<part1>[0-9]*),(?P<part2>[0-9]*)", val)
                 pos2 = (int(x.group("part1")), int(x.group("part2")))
                 self.connections.add_edge(pos1, pos2, self.calc_distance(pos1, pos2))
+                switch = True
+
+        print(self.targets)
         file.close()
 
     @staticmethod
@@ -43,10 +53,10 @@ class Data:
                                 550 - tuple1[1] * 70 + 10, fill="red")
         self.canvas.create_oval(50 + tuple2[0] * 70, 550 - tuple2[1] * 70, 50 + tuple2[0] * 70 + 10,
                                 550 - tuple2[1] * 70 + 10, fill="red")
-        if tuple1 == self.start or tuple1 == self.target:
+        if tuple1 == self.start or tuple1 in self.targets:
             self.canvas.create_oval(50 + tuple1[0] * 70, 550 - tuple1[1] * 70, 50 + tuple1[0] * 70 + 10,
                                     550 - tuple1[1] * 70 + 10, fill="blue")
-        if tuple2 == self.start or tuple2 == self.target:
+        if tuple2 == self.start or tuple2 in self.targets:
             self.canvas.create_oval(50 + tuple2[0] * 70, 550 - tuple2[1] * 70, 50 + tuple2[0] * 70 + 10,
                                     550 - tuple2[1] * 70 + 10, fill="blue")
 
@@ -75,78 +85,71 @@ class Graph:
         self.graph[u_tuple].append((v_tuple, w))
         self.graph[v_tuple].append((u_tuple, w))
 
+    def add_single_edge(self, u_tuple, v_tuple, w):
+        self.graph[u_tuple].append((v_tuple, w))
+
     def get_graph(self):
         return self.graph
 
 
-def find_best_path(graph, start, target, max_percentage):
-    distances, shortest_path = dijkstra(graph, start=target, target=start)  # distances relative to target
-    max_dist = distances[start] * (1 + max_percentage / 100)
-    queue = [start]
-    parents = {start: [Node(node=start, parent=None, gradient=200, turns=0, distance=0)]}
-    # dijkstra combined with finding least turns
-    count = 0
-    while queue:
-        min_turns = []
-        min_turn = float("Inf")
-        for v in queue:
-            if parents[v][0].get_turns() <= min_turn:
-                min_turn = parents[v][0].get_turns()
-                min_turns.append(v)
-        max_distance = -1
-        for v in min_turns:
-            if distances[v] > max_distance:
-                max_distance = distances[v]
-                vertex1 = v
-        queue.remove(vertex1)
-        count += 1
-        for vertex2, weight in graph[vertex1]:
-            gradient = get_gradient(vertex1, vertex2)
-            if vertex1 == start:
-                parents[vertex2] = [Node(vertex2, parents[start], gradient, 0, weight)]
-                queue.append(vertex2)
+def find_best_path(graph, start, targets, max_percentage):
+    distances = []
+    nodes = targets.copy()
+    nodes.append(start)
+    target_graph = Graph()
+    for target1 in nodes:
+        distances.append(dijkstra(graph, start=target1))
+        for target2 in nodes:
+            if target1 != target2:
+                target_graph.add_single_edge(target1, target2, distances[-1][target2])
+    g = target_graph.get_graph()
+    shortest = float("Inf")
+    all_combs = []
+    nodes.remove(start)
+    for comb in permutations(nodes):
+        total_distance = 0
+
+        for i in range(len(comb)):
+            if i == 0:
+                for e, w in g[start]:
+                    if e == comb[0]:
+                        total_distance += w
             else:
-                turns = (parents[vertex1][0].get_turns()) + 1
-                total_distance = float("Inf")
-                for e in parents[vertex1]:
-                    if e.get_gradient() == gradient and e.get_distance() + weight + distances[vertex2] <= max_dist:
-                        turns -= 1
-                        total_distance = e.get_distance() + weight
-                        best_node = e
-                        break
-                    elif total_distance > e.get_distance() + weight:
-                        total_distance = e.get_distance() + weight
-                        best_node = e
-                if best_node.get_distance() + weight + distances[vertex2] > max_dist:
-                    continue
-                elif vertex2 not in parents.keys():
-                    parents[vertex2] = [Node(vertex2, best_node, gradient, turns, total_distance)]
-                    if vertex2 != target and vertex2 not in queue:
-                        queue.append(vertex2)
-                else:
-                    if turns == parents[vertex2][0].get_turns():
-                        parents[vertex2].append(Node(vertex2, best_node, gradient, turns, total_distance))
-                    elif turns < parents[vertex2][0].get_turns():
-                        parents[vertex2] = [(Node(vertex2, best_node, gradient, turns, total_distance))]
-                        if vertex2 != target and vertex2 not in queue:
-                            queue.append(vertex2)
-    # Output
-    print("Abbiegungen:")
-    print(parents[target][0].get_turns())
-    print("Distanz:")
-    print(str(parents[target][0].get_distance()) + " (" + str(round(
-        100 * parents[target][0].get_distance() / distances[start] - 100,
-        4)) + "% longer than the shortest path)")
-    # create path
-    cur = parents[target][0].get_parent()
-    path = [target]
-    while type(cur) != list:
-        path.append(cur.get_node())
-        cur = cur.get_parent()
-    path.append(start)
-    print("Pfad:")
-    print(path)
-    return path
+                for e, w in g[comb[i-1]]:
+                    if e == comb[i]:
+                        total_distance += w
+        if total_distance < shortest:
+            shortest = total_distance
+
+        all_combs.append((list(comb), total_distance))
+    max_dist = shortest * (1 + max_percentage / 100)
+    paths = []
+    for c, d in all_combs:
+        if d <= max_dist:
+            paths.append((c, d))
+            
+    print(paths)
+    print("Maximale Distanz: " + str(max_dist))
+    print(shortest)
+    print(target_graph.get_graph())
+    print(distances)
+    # # Output
+    # print("Abbiegungen:")
+    # print(parents[target][0].get_turns())
+    # print("Distanz:")
+    # print(str(parents[target][0].get_distance()) + " (" + str(round(
+    #     100 * parents[target][0].get_distance() / distances[start] - 100,
+    #     4)) + "% longer than the shortest path)")
+    # # create path
+    # cur = parents[target][0].get_parent()
+    # path = [target]
+    # while type(cur) != list:
+    #     path.append(cur.get_node())
+    #     cur = cur.get_parent()
+    # path.append(start)
+    # print("Pfad:")
+    # print(path)
+    # return path
 
 
 def get_gradient(a, b):
@@ -159,7 +162,7 @@ def get_gradient(a, b):
     return val
 
 
-def dijkstra(graph, start, target):
+def dijkstra(graph, start):
     queue = [start]
     visited = set()
     distances = {start: 0}
@@ -181,12 +184,7 @@ def dijkstra(graph, start, target):
                     distances[vertex2] = distances.get(vertex1) + weight
                     parents[vertex2] = vertex1
                     queue.append(vertex2)
-    path = []
-    cur = target
-    while cur is not None:
-        path.append(cur)
-        cur = parents[cur]
-    return distances, path
+    return distances
 # Erweiterung: Mehrere Ziele, die alle erreicht werden müssen
 
 
@@ -222,10 +220,10 @@ percent = int(input())
 
 time1 = time.time()
 d = Data("Beispiel" + example + ".txt")
-result = find_best_path(d.connections.get_graph(), d.start, d.target, percent)
+result = find_best_path(d.connections.get_graph(), d.start, d.targets, percent)
 
 print('In ' + str((time.time() - time1) * 1000) + ' Milliseconds (with file reading, without graphics)')
 
 # graphical output
-d.draw_path(result)
+d.draw_path([(0, 0), (0, 1)])
 d.finish()

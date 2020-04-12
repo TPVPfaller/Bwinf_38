@@ -1,6 +1,6 @@
 from timeit import default_timer as timer
 import re
-
+import sys
 
 class Expression:
 
@@ -196,9 +196,9 @@ def get_term(a, operator, b):
 
 print("Geben Sie die zu berechnende Jahreszahl ein:")
 target_number = int(input())
-print("Geben sie eine Ziffer ein:")
+print("Geben Sie eine Ziffer ein:")
 digit = int(input())
-print("Wollen sie die Anzahl an Zeichen optimieren? [y/n]")
+print("Wollen Sie die Anzahl an Zeichen optimieren? [y/n]")
 optimization = input()
 
 time1 = timer()
@@ -214,7 +214,7 @@ else:
     elif optimization == 'n':
         res = optimize_digits(target_number, digit, operations)
     else:
-        print("Geben Sie bitte entweder n für nein oder y für ja ein.")
+        sys.exit("Geben Sie bitte entweder n für nein oder y für ja ein.")
     print(get_term(res.child1, res.operator, res.child2))
 
 print("In " + str(((timer() - time1))) + " Sekunden")

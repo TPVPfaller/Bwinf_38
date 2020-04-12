@@ -1,6 +1,7 @@
 from timeit import default_timer as timer
 import re
 import math
+import sys
 
 
 class Expression:
@@ -275,25 +276,26 @@ def get_term(a, operator, b):
 
 print("Geben Sie die zu berechnende Jahreszahl ein:")
 target_number = int(input())
-print("Geben sie eine Ziffer ein:")
-digit = int(input())
-print("Wollen sie die Anzahl an Zeichen optimieren? [y/n]")
+#print("Geben Sie eine Ziffer ein:")
+#digit = int(input())
+print("Wollen Sie die Anzahl an Zeichen optimieren? [y/n]")
 optimization = input()
 
 time1 = timer()
-if digit == target_number or len(re.findall(str(digit), str(target_number))) == (len(str(target_number)) / (len(str(digit)))):
-    print("Anzahl an verwendeten Ziffern:")
-    print(int(len(str(target_number)) / (len(str(digit)))))
-    print("Ergebnis:")
-    print(target_number)
-else:
-    operations = ['^', '/', '*', '+', '-']
-    if optimization == 'y':
-        res = optimize_operators_and_digits(target_number, digit, operations)
-    elif optimization == 'n':
-        res = optimize_digits(target_number, digit, operations)
+for digit in range(1, 10):
+    if digit == target_number or len(re.findall(str(digit), str(target_number))) == (len(str(target_number)) / (len(str(digit)))):
+        print("Anzahl an verwendeten Ziffern:")
+        print(int(len(str(target_number)) / (len(str(digit)))))
+        print("Ergebnis:")
+        print(target_number)
     else:
-        print("Geben Sie bitte entweder n für nein oder y für ja ein.")
-    print(get_term(res.child1, res.operator, res.child2))
+        operations = ['^', '/', '*', '+', '-']
+        if optimization == 'y':
+            res = optimize_operators_and_digits(target_number, digit, operations)
+        elif optimization == 'n':
+            res = optimize_digits(target_number, digit, operations)
+        else:
+            sys.exit("Geben Sie bitte entweder n für nein oder y für ja ein.")
+        print(get_term(res.child1, res.operator, res.child2))
 
-print("In " + str(((timer() - time1))) + " Sekunden")
+print("In " + str(round(timer() - time1, 6)) + " Sekunden")
