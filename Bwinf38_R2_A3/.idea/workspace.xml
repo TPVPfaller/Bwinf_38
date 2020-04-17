@@ -6,9 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76400527-b43d-40d0-9e72-d8540f302612" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aufgabe3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Beispiel4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Beispiel4.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1503">
-              <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+            <state relative-caret-position="-1474">
+              <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -361,13 +359,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49867374" visible="true" weight="0.09220232" />
       <window_info id="Structure" order="1" sideWeight="0.50132626" side_tool="true" weight="0.09062171" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947312" visible="true" weight="0.1879543" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947312" visible="true" weight="0.30944964" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997923" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -524,8 +523,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1503">
-          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+        <state relative-caret-position="-1474">
+          <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

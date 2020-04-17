@@ -67,13 +67,12 @@ class Data:
 
 
 def find_best_path(graph, start, target, max_percentage):
-    distances, shortest_path = dijkstra(graph, start=target, target=start)  # distances relative to target
+    distances = dijkstra(graph, start=target)  # distances relative to target
     limit = distances[start] * (1 + max_percentage / 100)
     queue = [start]
     nodes = {start: [Node(node=start, parent=None, gradient=200, turns=0, distance=0)]}
     # dijkstra combined with finding least turns
-    count = 0
-
+    visited = set()
     while queue:
         min_turns = []
         min_turn = float("Inf")
@@ -88,8 +87,10 @@ def find_best_path(graph, start, target, max_percentage):
                 max_distance = distances[v]    # the one with the longest Distance to the target
                 vertex1 = v
         queue.remove(vertex1)
-        count += 1
+        visited.add(vertex1)
         for vertex2, weight in graph[vertex1]:
+            if vertex2 in visited:
+                continue
             gradient = get_gradient(vertex1, vertex2)
             if vertex1 == start:
                 nodes[vertex2] = [Node(vertex2, nodes[start], gradient, 0, weight)]
@@ -153,14 +154,13 @@ def get_gradient(a, b):
     return val
 
 
-def dijkstra(graph, start, target):
+def dijkstra(graph, start):
     queue = [start]
     visited = set()
     distances = {start: 0}
-    parents = {start: None}
     while queue:
         minimum = float("Inf")
-        for v in queue:
+        for v in queue:  # linear search
             if distances[v] < minimum:
                 minimum = distances[v]
                 vertex1 = v
@@ -171,16 +171,10 @@ def dijkstra(graph, start, target):
                 if vertex2 in visited:
                     continue
                 # Updating distance if distance isn't set yet or the distance is shorter than the previous distance
-                if distances.get(vertex2, None) is None or distances.get(vertex1) + weight < distances.get(vertex2):
+                if distances.get(vertex2) is None or distances.get(vertex1) + weight < distances.get(vertex2):
                     distances[vertex2] = distances.get(vertex1) + weight
-                    parents[vertex2] = vertex1
                     queue.append(vertex2)
-    path = []
-    cur = target
-    while cur is not None:
-        path.append(cur)
-        cur = parents[cur]
-    return distances, path
+    return distances
 
 # Erweiterung: Mehrere Ziele, die alle erreicht werden müssen
 
