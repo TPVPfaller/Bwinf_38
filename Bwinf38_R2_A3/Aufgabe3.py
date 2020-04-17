@@ -1,4 +1,4 @@
-import time
+from timeit import default_timer as timer
 import math
 import re
 import tkinter as tk
@@ -78,8 +78,8 @@ def find_best_path(graph, start, target, max_percentage):
         min_turn = float("Inf")
         #   Selecting the next node of the queue
         for v in queue:
-            if nodes[v][0].get_turns() <= min_turn:
-                min_turn = nodes[v][0].get_turns()
+            if nodes[v][0].turns <= min_turn:
+                min_turn = nodes[v][0].turns
                 min_turns.append(v)
         max_distance = -1
         for v in min_turns:
@@ -96,51 +96,51 @@ def find_best_path(graph, start, target, max_percentage):
                 nodes[vertex2] = [Node(vertex2, nodes[start], gradient, 0, weight)]
                 queue.append(vertex2)
                 continue
-            turns = (nodes[vertex1][0].get_turns()) + 1
+            turns = nodes[vertex1][0].turns + 1
             total_distance = float("Inf")
             for e in nodes[vertex1]:    # Iterating through predecessors of vertex1
-                if e.get_gradient() == gradient and e.get_distance() + weight + distances[vertex2] <= limit:
+                if e.gradient == gradient and e.distance + weight + distances[vertex2] <= limit:
                     turns -= 1
-                    total_distance = e.get_distance() + weight
+                    total_distance = e.distance + weight
                     best_node = e
                     break
-                elif total_distance > e.get_distance() + weight:   # if there is no predecessor with the same gradient
-                    total_distance = e.get_distance() + weight     # the vertex with the shortest distance gets selected
+                elif total_distance > e.distance + weight:   # if there is no predecessor with the same gradient
+                    total_distance = e.distance + weight     # the vertex with the shortest distance gets selected
                     best_node = e
-            if best_node.get_distance() + weight + distances[vertex2] > limit:
+            if best_node.distance + weight + distances[vertex2] > limit:
                 continue
             if vertex2 not in nodes.keys():
                 nodes[vertex2] = [Node(vertex2, best_node, gradient, turns, total_distance)]
                 if vertex2 != target and vertex2 not in queue:
                     queue.append(vertex2)
             else:
-                if turns == nodes[vertex2][0].get_turns():
+                if turns == nodes[vertex2][0].turns:
                     nodes[vertex2].append(Node(vertex2, best_node, gradient, turns, total_distance))
-                elif turns < nodes[vertex2][0].get_turns():
+                elif turns < nodes[vertex2][0].turns:
                     nodes[vertex2] = [(Node(vertex2, best_node, gradient, turns, total_distance))]
                     if vertex2 != target and vertex2 not in queue:
                         queue.append(vertex2)
     # Get path with least distance
     least_distance = float("Inf")
     for e in nodes[target]:  # Iterate through all paths that go to path and have the same amount of turns
-        if e.get_distance() < least_distance:
-            least_distance = e.get_distance()
+        if e.distance < least_distance:
+            least_distance = e.distance
             best = e
-    print("Abbiegungen:")
-    print(best.get_turns())
-    print("Distanz:")
-    print(str(best.get_distance()) + " (" + str(round(
-        100 * best.get_distance() / distances[start] - 100,
-        4)) + "% longer than the shortest path)")
     # create path
-    cur = best.get_parent()
+    cur = best.parent
     path = [target]
     while type(cur) != list:
-        path.append(cur.get_node())
-        cur = cur.get_parent()
+        path.append(cur.node)
+        cur = cur.parent
     path.append(start)
     print("Pfad:")
     print(path)
+    print("Abbiegungen:")
+    print(best.turns)
+    print("Distanz:")
+    print(str(best.distance) + " (" + str(round(
+        100 * best.distance / distances[start] - 100,
+        4)) + "% longer than the shortest path)")
     return path
 
 
@@ -184,24 +184,9 @@ class Node:
     def __init__(self, node, parent, gradient, turns, distance):
         self.node = node
         self.parent = parent
-        self.gradient = gradient
+        self.gradient = gradient  # Gradient of edge between node and parent
         self.turns = turns
         self.distance = distance  # Distance from start
-
-    def get_parent(self):
-        return self.parent
-
-    def get_gradient(self):
-        return self.gradient
-
-    def get_turns(self):
-        return self.turns
-
-    def get_distance(self):
-        return self.distance
-
-    def get_node(self):
-        return self.node
 
 
 print('Geben Sie die Nummer eines Beispiels ein:')
@@ -209,11 +194,11 @@ example = input()
 print('Geben Sie die maximale Verlängerung in Prozent an: ')
 percent = int(input())
 
-time1 = time.time()
+time1 = timer()
 d = Data("Beispiel" + example + ".txt")
 result = find_best_path(d.graph, d.start, d.target, percent)
 
-print('In ' + str((time.time() - time1) * 1000) + ' Milliseconds (with file reading, without graphics)')
+print('In ' + str((timer() - time1) * 1000) + ' Milliseconds (with file reading, without graphics)')
 
 # graphical output
 d.draw_path(result)
