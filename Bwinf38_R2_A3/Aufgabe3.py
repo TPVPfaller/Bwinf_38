@@ -119,15 +119,20 @@ def find_best_path(graph, start, target, max_percentage):
                     nodes[vertex2] = [(Node(vertex2, best_node, gradient, turns, total_distance))]
                     if vertex2 != target and vertex2 not in queue:
                         queue.append(vertex2)
-    # Output
+    # Get path with least distance
+    least_distance = float("Inf")
+    for e in nodes[target]:  # Iterate through all paths that go to path and have the same amount of turns
+        if e.get_distance() < least_distance:
+            least_distance = e.get_distance()
+            best = e
     print("Abbiegungen:")
-    print(nodes[target][0].get_turns())
+    print(best.get_turns())
     print("Distanz:")
-    print(str(nodes[target][0].get_distance()) + " (" + str(round(
-        100 * nodes[target][0].get_distance() / distances[start] - 100,
+    print(str(best.get_distance()) + " (" + str(round(
+        100 * best.get_distance() / distances[start] - 100,
         4)) + "% longer than the shortest path)")
     # create path
-    cur = nodes[target][0].get_parent()
+    cur = best.get_parent()
     path = [target]
     while type(cur) != list:
         path.append(cur.get_node())
