@@ -71,8 +71,7 @@ def find_best_path(graph, start, target, max_percentage):
     limit = distances[start] * (1 + max_percentage / 100)
     queue, visited = [start], set()
     nodes = {start: [Node(node=start, parent=None, gradient=200, turns=0, distance=0)]}
-    # dijkstra combined with finding least turns
-    while queue:
+    while queue:  # dijkstra combined with finding least turns
         min_turns = []
         min_turn = float("Inf")
         for v in queue:  # Selecting the next node of the queue
@@ -81,8 +80,8 @@ def find_best_path(graph, start, target, max_percentage):
                 min_turns.append(v)
         max_distance = -1
         for v in min_turns:
-            if distances[v] > max_distance:    # If there are multiple vertices with the same amount of turns select
-                max_distance = distances[v]    # the one with the longest Distance to the target
+            if distances[v] > max_distance:    # If there are multiple vertices with same amount of turns select
+                max_distance = distances[v]    # vertex with longest distance to target
                 vertex1 = v
         queue.remove(vertex1)
         visited.add(vertex1)
@@ -113,9 +112,9 @@ def find_best_path(graph, start, target, max_percentage):
                     queue.append(vertex2)
             elif turns == nodes[vertex2][0].turns:
                 nodes[vertex2].append(Node(vertex2, best_node, gradient, turns, total_distance))
-    # Get path with least distance
+    # Get shortest path
     least_distance = float("Inf")
-    for e in nodes[target]:  # Iterate through all paths that go to path and have the same amount of turns
+    for e in nodes[target]:  # Iterate through all paths that go to target and have same amount of turns
         if e.distance < least_distance:
             least_distance = e.distance
             best = e
