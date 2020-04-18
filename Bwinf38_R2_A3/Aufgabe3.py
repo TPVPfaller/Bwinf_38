@@ -38,7 +38,6 @@ class Data:
         self.canvas = tk.Canvas(root, bg="white", height=800, width=1200)
 
     def draw_edge(self, tuple2, tuple1, color):
-
         self.canvas.create_line(50 + tuple1[0] * 70 + 5, 550 - tuple1[1] * 70 + 5, 50 + tuple2[0] * 70 + 5,
                                 550 - tuple2[1] * 70 + 5, fill=color, width=5)
         self.canvas.create_oval(50 + tuple1[0] * 70, 550 - tuple1[1] * 70, 50 + tuple1[0] * 70 + 10,
@@ -108,17 +107,12 @@ def find_best_path(graph, start, target, max_percentage):
                     best_node = e
             if total_distance + distances[vertex2] > limit:
                 continue
-            if vertex2 not in nodes.keys():
+            if vertex2 not in nodes.keys() or turns < nodes[vertex2][0].turns:
                 nodes[vertex2] = [Node(vertex2, best_node, gradient, turns, total_distance)]
                 if vertex2 != target and vertex2 not in queue:
                     queue.append(vertex2)
-            else:
-                if turns == nodes[vertex2][0].turns:
-                    nodes[vertex2].append(Node(vertex2, best_node, gradient, turns, total_distance))
-                elif turns < nodes[vertex2][0].turns:
-                    nodes[vertex2] = [(Node(vertex2, best_node, gradient, turns, total_distance))]
-                    if vertex2 != target and vertex2 not in queue:
-                        queue.append(vertex2)
+            elif turns == nodes[vertex2][0].turns:
+                nodes[vertex2].append(Node(vertex2, best_node, gradient, turns, total_distance))
     # Get path with least distance
     least_distance = float("Inf")
     for e in nodes[target]:  # Iterate through all paths that go to path and have the same amount of turns
@@ -133,13 +127,13 @@ def find_best_path(graph, start, target, max_percentage):
         cur = cur.parent
     path.append(start)
     print("Pfad:")
-    print(path)
+    print(list(reversed(path)))
     print("Abbiegungen:")
     print(best.turns)
     print("Distanz:")
     print(str(best.distance) + " (" + str(round(
         100 * best.distance / distances[start] - 100,
-        4)) + "% longer than the shortest path)")
+        4)) + "% länger als der kürzeste Pfad)")
     return path
 
 
@@ -197,7 +191,7 @@ time1 = timer()
 d = Data("Beispiel" + example + ".txt")
 result = find_best_path(d.graph, d.start, d.target, percent)
 
-print('In ' + str((timer() - time1) * 1000) + ' Milliseconds (with file reading, without graphics)')
+print('In ' + str(round((timer() - time1) * 1000, 5)) + ' Milliseconds (with file reading, without graphics)')
 
 # graphical output
 d.draw_path(result)
