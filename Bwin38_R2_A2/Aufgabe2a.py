@@ -212,6 +212,8 @@ if digit == target_number or len(re.findall(str(digit), str(target_number))) == 
     term = target_number
 else:
     operations = ['/', '*', '+', '-']
+    if digit == 0:
+        sys.exit("Not possible")
     if optimization == 'y':
         res, amount = optimize_operators_and_digits(target_number, digit, operations)
     elif optimization == 'n':

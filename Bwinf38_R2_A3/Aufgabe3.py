@@ -70,7 +70,7 @@ def find_best_path(graph, start, target, max_percentage):
     distances = dijkstra(graph, start=target)  # distances relative to target
     limit = distances[start] * (1 + max_percentage / 100)
     queue, visited = [start], set()
-    nodes = {start: [Node(node=start, parent=None, gradient=200, turns=0, distance=0)]}
+    nodes = {start: [Node(node=start, parent=None, gradient=0, turns=0, distance=0)]}
     while queue:  # dijkstra combined with finding least turns
         min_turns = []
         min_turn = float("Inf")
@@ -101,14 +101,14 @@ def find_best_path(graph, start, target, max_percentage):
                     total_distance = e.distance + weight
                     best_node = e
                     break
-                elif total_distance > e.distance + weight:   # if there is no predecessor with the same gradient
+                elif total_distance > e.distance + weight:   # if there is no predecessor with same gradient
                     total_distance = e.distance + weight     # the vertex with the shortest distance gets selected
                     best_node = e
             if total_distance + distances[vertex2] > limit:
                 continue
             if vertex2 not in nodes.keys() or turns < nodes[vertex2][0].turns:
                 nodes[vertex2] = [Node(vertex2, best_node, gradient, turns, total_distance)]
-                if vertex2 != target and vertex2 not in queue:
+                if vertex2 != target:
                     queue.append(vertex2)
             elif turns == nodes[vertex2][0].turns:
                 nodes[vertex2].append(Node(vertex2, best_node, gradient, turns, total_distance))
@@ -127,7 +127,7 @@ def find_best_path(graph, start, target, max_percentage):
     path.append(start)
     print("Pfad:")
     print(list(reversed(path)))
-    print("Abbiegungen:")
+    print("Abbiegungen:", end=" ")
     print(best.turns)
     print("Distanz:")
     print(str(best.distance) + " (" + str(round(
@@ -190,7 +190,7 @@ time1 = timer()
 d = Data("Beispiel" + example + ".txt")
 result = find_best_path(d.graph, d.start, d.target, percent)
 
-print('In ' + str(round((timer() - time1) * 1000, 5)) + ' Milliseconds (with file reading, without graphics)')
+print('In ' + str(round((timer() - time1) * 1000, 5)) + ' Millisekunden (mit Datei einlesen, ohne Graphik)')
 
 # graphical output
 d.draw_path(result)

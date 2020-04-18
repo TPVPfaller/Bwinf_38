@@ -18,7 +18,7 @@ class Expression:
 
     def get_operator(self):
         return self.operator
-
+2
 
 def optimize_digits(target_number, digit, operations):
     found_numbers = set()
@@ -72,7 +72,6 @@ def optimize_digits(target_number, digit, operations):
                     if result == target_number:
                         return rows[n - 1][-1], len(rows) - 1
                 count = True
-
         n1 = 0
         n2 = n - 1
         while not n2 < n1:
@@ -113,20 +112,20 @@ def optimize_digits(target_number, digit, operations):
                             else:
                                 continue
                         elif k == '^':
-                            result = 1
-                            p = num2
-                            b = num1
-                            if p < 12 and b < 12:
-                                while p:
-                                    if p & 0x1:
-                                        result *= b
-                                    b *= b
-                                    p >>= 1
-                                    if b > maximum:
-                                        break
-                                if result > maximum:
-                                    continue
-                            else:
+                            result = power(num1, num2, maximum)
+                            if result is None:
+                                continue
+                            if result not in found_numbers:
+                                c2 += 1
+                                if reversed:
+                                    rows[n].append(Expression(k, result, j, i))
+                                else:
+                                    rows[n].append(Expression(k, result, i, j))
+                                found_numbers.add(result)
+                                if result == target_number:
+                                    return rows[n][-1], len(rows)
+                            result = power(num2, num1, maximum)
+                            if result is None:
                                 continue
                         if result not in found_numbers:
                             if reversed:
@@ -141,10 +140,28 @@ def optimize_digits(target_number, digit, operations):
     sys.exit("Program interrupted because number of combinated digtis is greater than 30")
 
 
+def power(p, b, limit):
+    result = 1
+    if p + b < 40:
+        while p:
+            if p & 0x1:
+                result *= b
+            b *= b
+            p >>= 1
+            if b > limit:
+                break
+        if result > limit:
+            return
+    else:
+        return
+    return result
+
+
 def optimize_operators_and_digits(target_number, digit, operations):
     found_numbers = set()
     rows = [[Expression(None, digit, None, None, True)]]
     found_numbers.add(digit)
+
     if target_number == 0:
         rows[0].append(Expression('-', 0, rows[0][0], rows[0][0]))
         return rows[0][1], 3
@@ -152,6 +169,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
     if digit > 9:
         exponent = 12
     maximum = 10 ** exponent  # Performance depends on this number
+
     for n in range(1, 70):
         if len(rows[n - 1]) != 0 and rows[n - 1][0].is_digit:
             result = int(str(rows[n - 1][0].get_number()) + str(digit))
@@ -163,25 +181,27 @@ def optimize_operators_and_digits(target_number, digit, operations):
         else:
             rows.append([])
 
+        for e in rows[n - 1]:
+            result = e.get_number()
+            if (result <= 2 or result > 10) and digit != 0:
+                continue
+            result = math.factorial(result)
+            if result not in found_numbers:
+                rows[n].append(Expression('!', result, e, None))
+                found_numbers.add(result)
+                if result == target_number:
+                    return rows[n][-1], len(rows)
+        #print(n, len(rows[n - 1]), len(found_numbers))
         if n == 2 and digit != 1:
             rows[-1].append(Expression('/', 1, rows[0][0], rows[0][0]))
             found_numbers.add(1)
             if 1 == target_number:
                 return rows[-1][-1], 3
 
-        for e in rows[n - 1]:
-            result = e.get_number()
-            if result <= 2 or result > 10:
-                continue
-            result = math.factorial(result)
-            if result not in found_numbers:
-                rows[n].append(Expression('!', result, e, None))
-                if result == target_number:
-                    return rows[n][-1], len(rows)
-
         n1 = 0
         n2 = n - 2
         while not n2 < n1:
+
             for i in rows[n1]:
                 num1 = i.get_number()
                 for j in rows[n2]:
@@ -219,20 +239,19 @@ def optimize_operators_and_digits(target_number, digit, operations):
                             else:
                                 continue
                         elif k == '^':
-                            result = 1
-                            p = num2
-                            b = num1
-                            if p < 12 and b < 12:
-                                while p:
-                                    if p & 0x1:
-                                        result *= b
-                                    b *= b
-                                    p >>= 1
-                                    if b > maximum:
-                                        break
-                                if result > maximum:
-                                    continue
-                            else:
+                            result = power(num1, num2, maximum)
+                            if result is None:
+                                continue
+                            if result not in found_numbers:
+                                if reversed:
+                                    rows[n].append(Expression(k, result, j, i))
+                                else:
+                                    rows[n].append(Expression(k, result, i, j))
+                                found_numbers.add(result)
+                                if result == target_number:
+                                    return rows[n][-1], len(rows)
+                            result = power(num2, num1, maximum)
+                            if result is None:
                                 continue
                         if result not in found_numbers:
                             if reversed:
@@ -242,6 +261,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
                             found_numbers.add(result)
                             if result == target_number:
                                 return rows[n][-1], len(rows)
+
             n1 += 1
             n2 -= 1
     sys.exit("Program interrupted because the number of combinated digtis is greater than 70")
