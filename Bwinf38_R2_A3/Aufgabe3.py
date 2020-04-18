@@ -39,7 +39,8 @@ class Data:
 
     def draw_edge(self, tuple2, tuple1, color):
 
-        self.canvas.create_line(50 + tuple1[0] * 70 + 5, 550 - tuple1[1] * 70 + 5, 50 + tuple2[0] * 70 + 5, 550 - tuple2[1] * 70 + 5, fill=color, width=5)
+        self.canvas.create_line(50 + tuple1[0] * 70 + 5, 550 - tuple1[1] * 70 + 5, 50 + tuple2[0] * 70 + 5,
+                                550 - tuple2[1] * 70 + 5, fill=color, width=5)
         self.canvas.create_oval(50 + tuple1[0] * 70, 550 - tuple1[1] * 70, 50 + tuple1[0] * 70 + 10,
                                 550 - tuple1[1] * 70 + 10, fill="red")
         self.canvas.create_oval(50 + tuple2[0] * 70, 550 - tuple2[1] * 70, 50 + tuple2[0] * 70 + 10,
@@ -69,15 +70,13 @@ class Data:
 def find_best_path(graph, start, target, max_percentage):
     distances = dijkstra(graph, start=target)  # distances relative to target
     limit = distances[start] * (1 + max_percentage / 100)
-    queue = [start]
+    queue, visited = [start], set()
     nodes = {start: [Node(node=start, parent=None, gradient=200, turns=0, distance=0)]}
     # dijkstra combined with finding least turns
-    visited = set()
     while queue:
         min_turns = []
         min_turn = float("Inf")
-        #   Selecting the next node of the queue
-        for v in queue:
+        for v in queue:  # Selecting the next node of the queue
             if nodes[v][0].turns <= min_turn:
                 min_turn = nodes[v][0].turns
                 min_turns.append(v)
@@ -97,9 +96,9 @@ def find_best_path(graph, start, target, max_percentage):
                 queue.append(vertex2)
                 continue
             turns = nodes[vertex1][0].turns + 1
-            total_distance = float("Inf")
+            total_distance = limit
             for e in nodes[vertex1]:    # Iterating through predecessors of vertex1
-                if e.gradient == gradient and e.distance + weight + distances[vertex2] <= limit:
+                if e.gradient == gradient:
                     turns -= 1
                     total_distance = e.distance + weight
                     best_node = e
@@ -107,7 +106,7 @@ def find_best_path(graph, start, target, max_percentage):
                 elif total_distance > e.distance + weight:   # if there is no predecessor with the same gradient
                     total_distance = e.distance + weight     # the vertex with the shortest distance gets selected
                     best_node = e
-            if best_node.distance + weight + distances[vertex2] > limit:
+            if total_distance + distances[vertex2] > limit:
                 continue
             if vertex2 not in nodes.keys():
                 nodes[vertex2] = [Node(vertex2, best_node, gradient, turns, total_distance)]
