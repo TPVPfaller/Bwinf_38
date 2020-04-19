@@ -21,7 +21,7 @@ def optimize_digits(target_number, digit, operations):
         rows[0].append(Expression('-', 0, rows[0][0], rows[0][0]))
         return rows[0][1], 2
     if digit < 14:
-        result = math.factorial(digit)
+        result = round(math.gamma(digit+1), 3)
         rows[0].append(Expression('!', result, rows[0][0], None))
         found_numbers.add(result)
         if result == target_number:
@@ -36,14 +36,28 @@ def optimize_digits(target_number, digit, operations):
         i = n+1
         sys.stdout.write("\rBerechnet gerade für n = %i" % i)
         sys.stdout.flush()
+        i = 0
         if rows[n - 1][0].is_digit:
-            result = int(str(rows[n - 1][0].number) + str(digit))  # Add number containing the only the digit
-            # multiple times
-            if result < maximum:
-                rows.append([Expression(None, result, None, None, True)])
-                found_numbers.add(result)
-            else:
-                rows.append([])
+            last = str(digit).replace(".", "") + str(rows[n - 1][0].number).replace(".", "")
+            for k in range(1, len(last)):
+                result = ""
+                for i, s in enumerate(last):
+                    result += str(s)
+                    if i == k and len(last)-1 != k:
+                        result += "."
+
+                result = float(result)
+                # multiple times
+                if result % 1 == 0:
+                    result = int(result)
+                if result < maximum:
+                    if len(rows)-1 == n:
+                        rows[-1].append(Expression(None, result, None, None, True))
+                    else:
+                        rows.append([Expression(None, result, None, None, True)])
+                    found_numbers.add(result)
+                else:
+                    rows.append([])
         else:
             rows.append([])
 
@@ -54,12 +68,12 @@ def optimize_digits(target_number, digit, operations):
                 return rows[-1][-1], 3
 
         for e in rows[n - 1]:
-            result = e.number
+            result = round(e.number, 3)
             if result <= 2:
                 continue
             count = False
             while result <= 10:
-                result = math.factorial(result)
+                result = round(math.gamma(result+1), 3)
                 if result not in found_numbers:
                     if count:
                         rows[n - 1].append(Expression('!', result, rows[n - 1][-1], None))
@@ -68,6 +82,8 @@ def optimize_digits(target_number, digit, operations):
                     found_numbers.add(result)
                     if result == target_number:
                         return rows[n - 1][-1], len(rows) - 1
+                if result <= 2:
+                    break
                 count = True
         n1 = 0
         n2 = n - 1
@@ -78,6 +94,7 @@ def optimize_digits(target_number, digit, operations):
                     num2 = j.number
                     for k in operations:  # Zahlen mit allen Rechenarten kombinieren
                         reversed = False
+
                         if k == '+':
                             result = num1 + num2
                             if result > maximum:
@@ -91,39 +108,45 @@ def optimize_digits(target_number, digit, operations):
                             else:
                                 continue
                         elif k == '*':
-                            result = num1 * num2
+                            result = round(num1 * num2, 3)
                             if result > maximum:
                                 continue
                         elif k == '/':
-                            if num1 <= 1 or num2 <= 1:
+                            if num1 == 0:
                                 continue
-                            if num1 > num2:
-                                result = num1 / num2
-                            elif num1 < num2:
-                                result = num2 / num1
-                                reversed = True
-                            else:
-                                continue
-                            if result % 1 == 0:
+                            result = round(num2 / num1, 3)
+                            if result > maximum:
+                                result = digit
+                            elif result % 1 == 0:  # checking if number has a decimal place like .0
                                 result = int(result)
-                            else:
-                                continue
-                        elif k == '^':
-                            result = power(num1, num2, maximum, exponent)
-                            if result is None:
-                                pass
-                            elif result not in found_numbers:
-                                if reversed:
-                                    rows[n].append(Expression(k, result, j, i))
-                                else:
-                                    rows[n].append(Expression(k, result, i, j))
+                            if result not in found_numbers:
+                                rows[n].append(Expression(k, result, j, i))
                                 found_numbers.add(result)
                                 if result == target_number:
                                     return rows[n][-1], len(rows)
-                            result = power(num2, num1, maximum, exponent)
+                            if num2 == 0:
+                                continue
+                            result = round(num1 / num2, 3)
+                            if result > maximum:
+                                continue
+                            if result % 1 == 0:  # checking if number has a decimal place like .0
+                                result = int(result)
+                        elif k == '^':
+                            result = power(num1, num2, exponent)
+                            if result is None:
+                                pass
+                            else:
+                                result = round(result, 3)
+                                if result not in found_numbers:
+                                    rows[n].append(Expression(k, result, i, j))
+                                    found_numbers.add(result)
+                                    if result == target_number:
+                                        return rows[n][-1], len(rows)
+                            result = power(num2, num1, exponent)
                             if result is None:
                                 continue
                             else:
+                                result = round(result, 3)
                                 reversed = True
                         if result not in found_numbers:
                             if reversed:
@@ -139,19 +162,10 @@ def optimize_digits(target_number, digit, operations):
     sys.exit("Program interrupted because number of combinated digtis is greater than 30")
 
 
-def power(p, b, limit, exponent):
+def power(p, b, exponent):
     result = 1
     if p <= exponent and b <= 10:
-        while p:
-            if p & 0x1:
-                result *= b
-            b *= b
-            p >>= 1
-            if b > limit:
-                break
-        if result > limit:
-            print("ss")
-            return
+        math.pow(b, p)
     else:
         return
     return result
@@ -176,6 +190,8 @@ def optimize_operators_and_digits(target_number, digit, operations):
         sys.stdout.flush()
         if len(rows[n - 1]) != 0 and rows[n - 1][0].is_digit:
             result = int(str(rows[n - 1][0].number) + str(digit))
+            if result % 1 == 0:
+                result = int(result)
             if result < maximum:
                 rows.append([Expression(None, result, None, None, True)])
                 found_numbers.add(result)
@@ -229,28 +245,28 @@ def optimize_operators_and_digits(target_number, digit, operations):
                             if result > maximum:
                                 continue
                         elif k == '/':  # (bigger number) / (smaller number)
-                            if num1 <= 1 or num2 <= 1:
-                                continue
-                            if num1 > num2:
-                                result = num1 / num2
-                            elif num1 < num2:
-                                result = num2 / num1
-                                reversed = True
-                            else:
-                                continue
-                            if result % 1 == 0:  # checking if number has a decimal place
+                            result = round(num2 / num1, 3)
+                            if result > maximum:
+                                result = digit
+                            elif result % 1 == 0:  # checking if number has a decimal place like .0
                                 result = int(result)
-                            else:
+                            if result not in found_numbers:
+                                rows[n].append(Expression(k, result, j, i))
+                                found_numbers.add(result)
+                                if result == target_number:
+                                    return rows[n][-1], len(rows)
+                            result = round(num1 / num2, 3)
+                            if result > maximum:
                                 continue
+                            if result % 1 == 0:  # checking if number has a decimal place like .0
+                                result = int(result)
+
                         elif k == '^':
                             result = power(num1, num2, maximum, exponent)
                             if result is None:
                                 pass
                             elif result not in found_numbers:
-                                if reversed:
-                                    rows[n].append(Expression(k, result, j, i))
-                                else:
-                                    rows[n].append(Expression(k, result, i, j))
+                                rows[n].append(Expression(k, result, i, j))
                                 found_numbers.add(result)
                                 if result == target_number:
                                     return rows[n][-1], len(rows)
@@ -293,12 +309,15 @@ def get_term(a, operator, b):  # recursive conversion in mathematical Notation
 
 # output
 print("Geben Sie die zu berechnende Jahreszahl ein:")
-target_number = int(input())
+target_number = round(float(input()), 3)
+if target_number % 1 == 0:
+    digit = int(target_number)
 print("Geben Sie eine Ziffer ein:")
-digit = int(input())
+digit = round(float(input()), 3)
+if digit % 1 == 0:
+    digit = int(digit)
 print("Wollen Sie auch die Anzahl an Rechenzeichen optimieren? [y/n]")
 optimization = input()
-
 time1 = timer()
 # checking if target_number only contains the digit
 if digit == target_number or len(re.findall(str(digit), str(target_number))) == (
