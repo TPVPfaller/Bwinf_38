@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2a.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2a.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2b.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -372,7 +371,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49867374" visible="true" weight="0.13804004" />
       <window_info id="Structure" order="1" sideWeight="0.50132626" side_tool="true" weight="0.09062171" />

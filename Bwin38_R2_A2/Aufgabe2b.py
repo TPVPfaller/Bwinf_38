@@ -33,6 +33,9 @@ def optimize_digits(target_number, digit, operations):
         exponent = 12
     maximum = 10 ** exponent  # Performance depends on this number
     for n in range(1, 30):  # n := number of digits containing a term
+        i = n+1
+        sys.stdout.write("\rBerechnet gerade für n = %i" % i)
+        sys.stdout.flush()
         if rows[n - 1][0].is_digit:
             result = int(str(rows[n - 1][0].number) + str(digit))  # Add number containing the only the digit
             # multiple times
@@ -106,10 +109,10 @@ def optimize_digits(target_number, digit, operations):
                             else:
                                 continue
                         elif k == '^':
-                            result = power(num1, num2, maximum)
+                            result = power(num1, num2, maximum, exponent)
                             if result is None:
-                                continue
-                            if result not in found_numbers:
+                                pass
+                            elif result not in found_numbers:
                                 if reversed:
                                     rows[n].append(Expression(k, result, j, i))
                                 else:
@@ -117,9 +120,11 @@ def optimize_digits(target_number, digit, operations):
                                 found_numbers.add(result)
                                 if result == target_number:
                                     return rows[n][-1], len(rows)
-                            result = power(num2, num1, maximum)
+                            result = power(num2, num1, maximum, exponent)
                             if result is None:
                                 continue
+                            else:
+                                reversed = True
                         if result not in found_numbers:
                             if reversed:
                                 rows[n].append(Expression(k, result, j, i))
@@ -130,12 +135,13 @@ def optimize_digits(target_number, digit, operations):
                                 return rows[n][-1], len(rows)
             n1 += 1
             n2 -= 1
+
     sys.exit("Program interrupted because number of combinated digtis is greater than 30")
 
 
-def power(p, b, limit):
+def power(p, b, limit, exponent):
     result = 1
-    if p + b < 40:
+    if p <= exponent and b <= 10:
         while p:
             if p & 0x1:
                 result *= b
@@ -144,6 +150,7 @@ def power(p, b, limit):
             if b > limit:
                 break
         if result > limit:
+            print("ss")
             return
     else:
         return
@@ -164,6 +171,9 @@ def optimize_operators_and_digits(target_number, digit, operations):
     maximum = 10 ** exponent  # Performance depends on this number
 
     for n in range(1, 70):
+        i = n + 1
+        sys.stdout.write("\rBerechnet gerade für n = %i" % i)
+        sys.stdout.flush()
         if len(rows[n - 1]) != 0 and rows[n - 1][0].is_digit:
             result = int(str(rows[n - 1][0].number) + str(digit))
             if result < maximum:
@@ -176,7 +186,9 @@ def optimize_operators_and_digits(target_number, digit, operations):
 
         for e in rows[n - 1]:
             result = e.number
-            if (result <= 2 or result > 10) and digit != 0:
+            if result <= 2 and digit != 0:
+                continue
+            if result >= 10:
                 continue
             result = math.factorial(result)
             if result not in found_numbers:
@@ -184,7 +196,6 @@ def optimize_operators_and_digits(target_number, digit, operations):
                 found_numbers.add(result)
                 if result == target_number:
                     return rows[n][-1], len(rows)
-        #print(n, len(rows[n - 1]), len(found_numbers))
         if n == 2 and digit != 1:
             rows[-1].append(Expression('/', 1, rows[0][0], rows[0][0]))
             found_numbers.add(1)
@@ -199,13 +210,13 @@ def optimize_operators_and_digits(target_number, digit, operations):
                 num1 = i.number
                 for j in rows[n2]:
                     num2 = j.number
-                    for k in operations:  # Zahlen mit allen Rechenarten kombinieren
+                    for k in operations:  # Combining numbers with all operations
                         reversed = False
                         if k == '+':
                             result = num1 + num2
                             if result > maximum:
                                 continue
-                        elif k == '-':
+                        elif k == '-':  # (bigger number) - (smaller number)
                             if num1 > num2:
                                 result = num1 - num2
                             elif num2 > num1:
@@ -217,7 +228,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
                             result = num1 * num2
                             if result > maximum:
                                 continue
-                        elif k == '/':
+                        elif k == '/':  # (bigger number) / (smaller number)
                             if num1 <= 1 or num2 <= 1:
                                 continue
                             if num1 > num2:
@@ -227,15 +238,15 @@ def optimize_operators_and_digits(target_number, digit, operations):
                                 reversed = True
                             else:
                                 continue
-                            if result % 1 == 0:
+                            if result % 1 == 0:  # checking if number has a decimal place
                                 result = int(result)
                             else:
                                 continue
                         elif k == '^':
-                            result = power(num1, num2, maximum)
+                            result = power(num1, num2, maximum, exponent)
                             if result is None:
-                                continue
-                            if result not in found_numbers:
+                                pass
+                            elif result not in found_numbers:
                                 if reversed:
                                     rows[n].append(Expression(k, result, j, i))
                                 else:
@@ -243,10 +254,10 @@ def optimize_operators_and_digits(target_number, digit, operations):
                                 found_numbers.add(result)
                                 if result == target_number:
                                     return rows[n][-1], len(rows)
-                            result = power(num2, num1, maximum)
+                            result = power(num2, num1, maximum, exponent)
                             if result is None:
                                 continue
-                        if result not in found_numbers:
+                        if result not in found_numbers:  # check if result is new
                             if reversed:
                                 rows[n].append(Expression(k, result, j, i))
                             else:
@@ -254,34 +265,33 @@ def optimize_operators_and_digits(target_number, digit, operations):
                             found_numbers.add(result)
                             if result == target_number:
                                 return rows[n][-1], len(rows)
-
             n1 += 1
             n2 -= 1
     sys.exit("Program interrupted because the number of combinated digtis is greater than 70")
 
 
-def get_term(a, operator, b):  # Rekursive Umwandlung in Infixnotation
+def get_term(a, operator, b):  # recursive conversion in mathematical Notation
 
     if operator == '!' and a.is_digit:
-        return '(' + str(a.get_number()) + '!)'
+        return '(' + str(a.number) + '!)'
 
     if operator == '!' and not a.is_digit:
-        return '(' + get_term(a.child1, a.get_operator(), a.child2) + '!)'
+        return '(' + get_term(a.child1, a.operator, a.child2) + '!)'
 
     if a.is_digit and not b.is_digit:
-        return '(' + str(a.get_number()) + operator + get_term(b.child1, b.get_operator(), b.child2) + ')'
+        return '(' + str(a.number) + operator + get_term(b.child1, b.operator, b.child2) + ')'
 
     if b.is_digit and not a.is_digit:
-        return '(' + get_term(a.child1, a.get_operator(), a.child2) + operator + str(b.get_number()) + ')'
+        return '(' + get_term(a.child1, a.operator, a.child2) + operator + str(b.number) + ')'
 
     if not b.is_digit and not a.is_digit:
-        return '(' + get_term(a.child1, a.get_operator(), a.child2) + operator + get_term(b.child1, b.get_operator(),
-                                                                                          b.child2) + ')'
+        return '(' + get_term(a.child1, a.operator, a.child2) + operator + get_term(b.child1, b.operator,b.child2) + ')'
+
     if b.is_digit and a.is_digit:
-        return '(' + str(a.get_number()) + operator + str(b.get_number()) + ')'
+        return '(' + str(a.number) + operator + str(b.number) + ')'
 
 
-# Ausgabe
+# output
 print("Geben Sie die zu berechnende Jahreszahl ein:")
 target_number = int(input())
 print("Geben Sie eine Ziffer ein:")
@@ -290,7 +300,7 @@ print("Wollen Sie auch die Anzahl an Rechenzeichen optimieren? [y/n]")
 optimization = input()
 
 time1 = timer()
-
+# checking if target_number only contains the digit
 if digit == target_number or len(re.findall(str(digit), str(target_number))) == (
         len(str(target_number)) / (len(str(digit)))):
 
@@ -306,8 +316,9 @@ else:
         sys.exit("Geben Sie bitte entweder 'n' für nein oder 'y' für ja ein.")
     term = get_term(res.child1, res.operator, res.child2)
 
+print("")
 print("Anzahl:")
 print(amount)
 print("Term:")
 print(term)
-print("In " + str(round(timer() - time1, 6)) + " Sekunden")
+print("In " + str(round(timer() - time1, 5)) + " Sekunden")
