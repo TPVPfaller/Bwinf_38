@@ -129,7 +129,7 @@ def find_best_path(graph, start, target, max_percentage):
     print(list(reversed(path)))
     print("Abbiegungen:", end=" ")
     print(best.turns)
-    print("Distanz:")
+    print("Distanz:", end=" ")
     print(str(best.distance) + " (" + str(round(100 * best.distance / distances[start] - 100,
                                                 4)) + "% länger als der kürzeste Pfad)")
     return path
@@ -168,9 +168,6 @@ def dijkstra(graph, start):
     return distances
 
 
-# Erweiterung: Mehrere Ziele, die alle erreicht werden müssen
-
-
 class Node:
 
     def __init__(self, node, parent, gradient, turns, distance):
@@ -184,7 +181,7 @@ class Node:
 print('Geben Sie die Nummer eines Beispiels ein:')
 example = input()
 print('Geben Sie die maximale Verlängerung in Prozent an: ')
-percent = int(input())
+percent = float(input())
 
 time1 = timer()
 d = Data("Beispiel" + example + ".txt")

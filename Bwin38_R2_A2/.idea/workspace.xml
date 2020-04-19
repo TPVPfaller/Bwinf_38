@@ -3,12 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="029389af-54c3-415d-b655-35824a8bfcc8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Aufgabe2a.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe2a.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe2b.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel6.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel7" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel7.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/Aufgabe3.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Aufgabe3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Aufgabe3Erweiterung.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Aufgabe2a.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="225" selection-start-line="225" selection-end-line="230" selection-end-column="59" />
+            <state relative-caret-position="-794">
+              <caret line="120" column="41" lean-forward="true" selection-start-line="120" selection-start-column="41" selection-end-line="120" selection-end-column="41" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -242,7 +240,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Terminal" order="5" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.50363445" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.298027" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39937106" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -315,8 +313,8 @@
     <entry file="file://$PROJECT_DIR$/test.py" />
     <entry file="file://$PROJECT_DIR$/Aufgabe2a.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="225" selection-start-line="225" selection-end-line="230" selection-end-column="59" />
+        <state relative-caret-position="-794">
+          <caret line="120" column="41" lean-forward="true" selection-start-line="120" selection-start-column="41" selection-end-line="120" selection-end-column="41" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

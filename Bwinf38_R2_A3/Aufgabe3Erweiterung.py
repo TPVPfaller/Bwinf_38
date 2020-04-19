@@ -1,4 +1,4 @@
-import time
+from timeit import default_timer as timer
 import math
 import re
 import tkinter as tk
@@ -77,35 +77,33 @@ class Data:
 
 def find_best_path(graph, start, targets, max_percentage):
     distances = defaultdict()
+    global_distances = defaultdict()
     nodes = targets.copy()
     nodes.append(start)
     target_graph = defaultdict(list)
+    # Getting distances of all targets to all other targets
     for target1 in nodes:
         distances[target1] = (dijkstra(graph, start=target1))
         for target2 in nodes:
             if target1 != target2:
                 target_graph[target1].append((target2, distances[target1][target2]))
+                global_distances[(target1, target2)] = distances[target1][target2]
 
     shortest = float("Inf")
     all_combs = []
     nodes.remove(start)
+    # creating all permutations
     for comb in permutations(nodes):
         total_distance = 0
-
-        for i in range(len(comb)):
-            if i == 0:
-                for e, w in target_graph[start]:
-                    if e == comb[0]:
-                        total_distance += w
-            else:
-                for e, w in target_graph[comb[i-1]]:
-                    if e == comb[i]:
-                        total_distance += w
+        last = start
+        for e in comb:
+            total_distance += global_distances[(last, e)]
+            last = e
         if total_distance < shortest:
             shortest = total_distance
-
         all_combs.append((list(comb), total_distance))
-    max_dist = shortest * (1 + max_percentage / 100)
+
+    max_dist = shortest * (1 + max_percentage / 100)  # global limit
     paths = []
     for c, d in all_combs:
         if d <= max_dist:
@@ -115,27 +113,23 @@ def find_best_path(graph, start, targets, max_percentage):
     best_dist = float("Inf")
     for targets, distance in paths:
         s = start
-        limit = max_dist - distance
+        limit = max_dist - distance  # maximum additional distance for this permutation
         total_turns = 0
         total_path = []
         total_distance = 0
         last_gradient = None
         for index, t in enumerate(targets):
-            weight = 0
-            for e, w in target_graph[s]:
-                if e == t:
-                    local_limit = limit + w
-                    weight = w
+            weight = global_distances[(s, t)]
+            local_limit = limit + weight
+            weight = weight
+            # getting best path between targets
             path, d, turns, l_gradient, f_gradient = turn_optimization(graph, s, t, local_limit, distances[t])
-            if path == None:
-                break
             total_turns += turns
             total_distance += d
             limit -= (d-weight)
             if 0 < index < len(targets) - 1:
                 path.remove(t)
-            for v in path:
-                total_path.append(v)
+            total_path.extend(path)
             if last_gradient is not None:
                 if abs(last_gradient) != abs(f_gradient):
                     total_turns += 1
@@ -149,13 +143,11 @@ def find_best_path(graph, start, targets, max_percentage):
             best_path = total_path
             min_turns = total_turns
             best_dist = total_distance
-
-    print("Maximale Distanz: " + str(max_dist))
     print("Pfad: ")
     print(best_path)
     print("Abbiegungen:", end=" ")
     print(min_turns)
-    print("Distanz:")
+    print("Distanz:", end=" ")
     print(str(best_dist) + " (" + str(round(
         100 * best_dist / shortest - 100,
         4)) + "% länger als der kürzeste Pfad)")
@@ -206,7 +198,6 @@ def turn_optimization(graph, start, target, limit, distances):
                     queue.append(vertex2)
             elif turns == nodes[vertex2][0].turns:
                 nodes[vertex2].append(Node(vertex2, best_node, gradient, turns, total_distance))
-
 
     # Get shortest path
     shortest_distance = float("Inf")
@@ -272,13 +263,13 @@ class Node:
 print('Geben Sie die Nummer eines Beispiels ein:')
 example = input()
 print('Geben Sie die maximale Verlängerung in Prozent an: ')
-percent = int(input())
+percent = float(input())
 
-time1 = time.time()
+time1 = timer()
 d = Data("Beispiel" + example + ".txt")
 result = find_best_path(d.graph, d.start, d.targets, percent)
 
-print('In ' + str((time.time() - time1) * 1000) + ' Milliseconds (with file reading, without graphics)')
+print('In ' + str(round((timer() - time1) * 1000, 3)) + ' Milliseconds (with file reading, without graphics)')
 
 # graphical output
 d.draw_path(result)
