@@ -12,12 +12,6 @@ class Expression:
         self.child2 = child2
         self.is_digit = is_digit
 
-    def get_number(self):
-        return self.number
-
-    def get_operator(self):
-        return self.operator
-
 
 def optimize_digits(target_number, digit, operations):
     found_numbers = set()
@@ -32,7 +26,7 @@ def optimize_digits(target_number, digit, operations):
     maximum = 10 ** exponent  # Performance depends on this number
     for n in range(1, 40):  # n := number of digits containing a term
         if rows[n - 1][0].is_digit:
-            result = int(str(rows[n - 1][0].get_number()) + str(digit))  # Add number containing the only the digit
+            result = int(str(rows[n - 1][0].number) + str(digit))  # Add number containing the only the digit
             # multiple times
             if result < maximum:
                 rows.append([Expression(None, result, None, None, True)])
@@ -51,9 +45,9 @@ def optimize_digits(target_number, digit, operations):
         n2 = n - 1
         while not n2 < n1:
             for i in rows[n1]:
-                num1 = i.get_number()
+                num1 = i.number
                 for j in rows[n2]:
-                    num2 = j.get_number()
+                    num2 = j.number
                     for k in operations:
                         reversed = False
                         if k == '+':
@@ -107,7 +101,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
         rows[0].append(Expression('-', 0, rows[0][0], rows[0][0]))
         return rows[0][1], 3
     found_numbers.add(digit)
-    if rows[0][0].get_number() == target_number:
+    if rows[0][0].number == target_number:
         return rows[0][0], len(rows)
     exponent = 7
     if digit > 9:
@@ -115,7 +109,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
     maximum = 10 ** exponent  # Performance depends on this number
     for n in range(1, 70):
         if len(rows[n - 1]) != 0 and rows[n - 1][0].is_digit:
-            result = int(str(rows[n - 1][0].get_number()) + str(digit))
+            result = int(str(rows[n - 1][0].number) + str(digit))
             if result < maximum:
                 rows.append([Expression(None, result, None, None, True)])
                 found_numbers.add(result)
@@ -132,9 +126,9 @@ def optimize_operators_and_digits(target_number, digit, operations):
         n2 = n - 2
         while not n2 < n1:
             for i in rows[n1]:
-                num1 = i.get_number()
+                num1 = i.number
                 for j in rows[n2]:
-                    num2 = j.get_number()
+                    num2 = j.number
                     for k in operations:
                         reversed = False
                         if k == '+':
