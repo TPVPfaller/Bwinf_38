@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="029389af-54c3-415d-b655-35824a8bfcc8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aufgabe2a.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe2a.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe2b.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel7" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/testing.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Aufgabe2a.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1054">
-              <caret line="130" column="14" lean-forward="true" selection-start-line="130" selection-start-column="14" selection-end-line="130" selection-end-column="14" />
+            <state relative-caret-position="226">
+              <caret line="225" selection-start-line="225" selection-end-line="230" selection-end-column="59" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -26,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Aufgabe2b.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="259" column="81" lean-forward="true" selection-start-line="259" selection-start-column="57" selection-end-line="259" selection-end-column="81" />
+            <state relative-caret-position="1382">
+              <caret line="317" lean-forward="true" selection-start-line="317" selection-end-line="317" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -62,16 +66,15 @@
       <list>
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Aufgabe2.py" />
-        <option value="$PROJECT_DIR$/Aufgabe2b.py" />
         <option value="$PROJECT_DIR$/Aufgabe2a.py" />
+        <option value="$PROJECT_DIR$/Aufgabe2b.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="240" />
-    <option name="y" value="135" />
-    <option name="width" value="1440" />
-    <option name="height" value="810" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-7" />
+    <option name="width" value="1337" />
+    <option name="height" value="1087" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -111,7 +114,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Aufgabe2a">
+  <component name="RunManager" selected="Python.Aufgabe2b">
     <configuration name="Aufgabe2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Bwin38_R2_A2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -198,8 +201,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Aufgabe2a" />
         <item itemvalue="Python.Aufgabe2b" />
+        <item itemvalue="Python.Aufgabe2a" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.Aufgabe2" />
       </list>
@@ -228,7 +231,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4987013" visible="true" weight="0.14488935" />
       <window_info id="Structure" order="1" sideWeight="0.5012987" side_tool="true" weight="0.14488935" />
@@ -239,7 +242,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Terminal" order="5" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.31464174" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.50363445" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39937106" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -310,20 +313,20 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test.py" />
-    <entry file="file://$PROJECT_DIR$/Aufgabe2b.py">
+    <entry file="file://$PROJECT_DIR$/Aufgabe2a.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="259" column="81" lean-forward="true" selection-start-line="259" selection-start-column="57" selection-end-line="259" selection-end-column="81" />
+        <state relative-caret-position="226">
+          <caret line="225" selection-start-line="225" selection-end-line="230" selection-end-column="59" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Aufgabe2a.py">
+    <entry file="file://$PROJECT_DIR$/Aufgabe2b.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1054">
-          <caret line="130" column="14" lean-forward="true" selection-start-line="130" selection-start-column="14" selection-end-line="130" selection-end-column="14" />
+        <state relative-caret-position="1382">
+          <caret line="317" lean-forward="true" selection-start-line="317" selection-end-line="317" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

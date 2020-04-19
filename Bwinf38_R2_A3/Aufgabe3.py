@@ -80,8 +80,8 @@ def find_best_path(graph, start, target, max_percentage):
                 min_turns.append(v)
         max_distance = -1
         for v in min_turns:
-            if distances[v] > max_distance:    # If there are multiple vertices with same amount of turns select
-                max_distance = distances[v]    # vertex with longest distance to target
+            if distances[v] > max_distance:  # If there are multiple vertices with same amount of turns select
+                max_distance = distances[v]  # vertex with longest distance to target
                 vertex1 = v
         queue.remove(vertex1)
         visited.add(vertex1)
@@ -95,14 +95,14 @@ def find_best_path(graph, start, target, max_percentage):
                 continue
             turns = nodes[vertex1][0].turns + 1
             total_distance = limit
-            for e in nodes[vertex1]:    # Iterating through predecessors of vertex1
+            for e in nodes[vertex1]:  # Iterating through predecessors of vertex1
                 if e.gradient == gradient:
                     turns -= 1
                     total_distance = e.distance + weight
                     best_node = e
                     break
-                elif total_distance > e.distance + weight:   # if there is no predecessor with same gradient
-                    total_distance = e.distance + weight     # the vertex with the shortest distance gets selected
+                elif total_distance > e.distance + weight:  # if there is no predecessor with same gradient
+                    total_distance = e.distance + weight  # the vertex with the shortest distance gets selected
                     best_node = e
             if total_distance + distances[vertex2] > limit:
                 continue
@@ -113,10 +113,10 @@ def find_best_path(graph, start, target, max_percentage):
             elif turns == nodes[vertex2][0].turns:
                 nodes[vertex2].append(Node(vertex2, best_node, gradient, turns, total_distance))
     # Get shortest path
-    least_distance = float("Inf")
+    shortest_distance = float("Inf")
     for e in nodes[target]:  # Iterate through all paths that go to target and have same amount of turns
-        if e.distance < least_distance:
-            least_distance = e.distance
+        if e.distance < shortest_distance:
+            shortest_distance = e.distance
             best = e
     # create path
     cur = best.parent
@@ -130,9 +130,8 @@ def find_best_path(graph, start, target, max_percentage):
     print("Abbiegungen:", end=" ")
     print(best.turns)
     print("Distanz:")
-    print(str(best.distance) + " (" + str(round(
-        100 * best.distance / distances[start] - 100,
-        4)) + "% länger als der kürzeste Pfad)")
+    print(str(best.distance) + " (" + str(round(100 * best.distance / distances[start] - 100,
+                                                4)) + "% länger als der kürzeste Pfad)")
     return path
 
 
@@ -167,6 +166,7 @@ def dijkstra(graph, start):
                     distances[vertex2] = distances.get(vertex1) + weight
                     queue.append(vertex2)
     return distances
+
 
 # Erweiterung: Mehrere Ziele, die alle erreicht werden müssen
 

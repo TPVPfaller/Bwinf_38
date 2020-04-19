@@ -317,8 +317,8 @@ else:
     term = get_term(res.child1, res.operator, res.child2)
 
 print("")
-print("Anzahl:")
-print(amount)
-print("Term:")
+print("Anzahl:", end=" ")
+print(amount, end=", ")
+print("Term:", end=" ")
 print(term)
 print("In " + str(round(timer() - time1, 5)) + " Sekunden")
