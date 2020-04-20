@@ -53,7 +53,7 @@ def optimize_digits(target_number, digit, operations):
             if 1 == target_number:
                 return rows[-1][-1], 2
 
-        for e in rows[n - 1]:
+        for e in rows[n - 1]:  # calculate factorial of numbers from last row
             result = e.number
             if result <= 2:
                 continue
@@ -76,7 +76,7 @@ def optimize_digits(target_number, digit, operations):
                 num1 = i.number
                 for j in rows[n2]:
                     num2 = j.number
-                    for k in operations:  # Zahlen mit allen Rechenarten kombinieren
+                    for k in operations:  # Combine with all operations
                         reversed = False
                         if k == '+':
                             result = num1 + num2
@@ -95,15 +95,13 @@ def optimize_digits(target_number, digit, operations):
                             if result > maximum:
                                 continue
                         elif k == '/':  # (bigger number) / (smaller number)
-                            if num1 <= 1 or num2 <= 1:
+                            if num1 <= 1 or num2 <= 1 or num1 == num2:
                                 continue
                             if num1 > num2:
                                 result = num1 / num2
-                            elif num1 < num2:
+                            else:
                                 result = num2 / num1
                                 reversed = True
-                            else:
-                                continue
                             if result % 1 == 0:
                                 result = int(result)
                             else:
@@ -113,18 +111,14 @@ def optimize_digits(target_number, digit, operations):
                             if result is None:
                                 pass
                             elif result not in found_numbers:
-                                if reversed:
-                                    rows[n].append(Expression(k, result, j, i))
-                                else:
-                                    rows[n].append(Expression(k, result, i, j))
+                                rows[n].append(Expression(k, result, i, j))
                                 found_numbers.add(result)
                                 if result == target_number:
                                     return rows[n][-1], len(rows)
                             result = power(num2, num1, maximum, exponent)
                             if result is None:
                                 continue
-                            else:
-                                reversed = True
+                            reversed = True
                         if result not in found_numbers:  # check if result is new
                             if reversed:
                                 rows[n].append(Expression(k, result, j, i))
@@ -135,7 +129,6 @@ def optimize_digits(target_number, digit, operations):
                                 return rows[n][-1], len(rows)
             n1 += 1
             n2 -= 1
-
     sys.exit("Program interrupted because number of combinated digtis is greater than 30")
 
 
@@ -184,7 +177,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
         else:
             rows.append([])
 
-        for e in rows[n - 1]:
+        for e in rows[n - 1]:  # calculate factorial of numbers from last row
             result = e.number
             if result <= 2 and digit != 0:
                 continue
@@ -201,7 +194,6 @@ def optimize_operators_and_digits(target_number, digit, operations):
             found_numbers.add(1)
             if 1 == target_number:
                 return rows[-1][-1], 3
-
         n1 = 0
         n2 = n - 2
         while not n2 < n1:
@@ -246,16 +238,14 @@ def optimize_operators_and_digits(target_number, digit, operations):
                             if result is None:
                                 pass
                             elif result not in found_numbers:  # check if result is new
-                                if reversed:
-                                    rows[n].append(Expression(k, result, j, i))
-                                else:
-                                    rows[n].append(Expression(k, result, i, j))
+                                rows[n].append(Expression(k, result, i, j))
                                 found_numbers.add(result)
                                 if result == target_number:
                                     return rows[n][-1], len(rows)
                             result = power(num2, num1, maximum, exponent)
                             if result is None:
                                 continue
+                            reversed = True
                         if result not in found_numbers:  # check if result is new
                             if reversed:
                                 rows[n].append(Expression(k, result, j, i))

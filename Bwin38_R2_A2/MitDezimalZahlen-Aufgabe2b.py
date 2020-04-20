@@ -59,7 +59,6 @@ def optimize_digits(target_number, digit, operations):
                     if i == k and len(last)-1 != k:
                         result += "."
                 result = float(result)
-                # multiple times
                 if result % 1 == 0:
                     result = int(result)
                 if result < maximum:
@@ -251,7 +250,6 @@ def optimize_operators_and_digits(target_number, digit, operations):
                     if i == k and len(last) - 1 != k:
                         result += "."
                 result = float(result)
-                # multiple times
                 if result % 1 == 0:
                     result = int(result)
                 if result < maximum:
@@ -278,7 +276,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
             if 1 == target_number:
                 return rows[-1][-1], 3
 
-        for e in rows[n - 1]:  # calculate factorial of each number
+        for e in rows[n - 1]:  # calculate factorial of numbers from last row
             result = e.number
             if result <= 2 and digit != 0:
                 continue
