@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/Aufgabe3Erweiterung.py" line="148" />
+    <bookmark url="file://$PROJECT_DIR$/Aufgabe3Erweiterung.py" line="147" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76400527-b43d-40d0-9e72-d8540f302612" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Beispiel8.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2b.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/MitDezimalZahlen-Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/MitDezimalZahlen-Aufgabe2b.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TSP.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Aufgabe3Erweiterung.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe3Erweiterung.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,10 +18,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
+            <state relative-caret-position="629">
               <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -41,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Aufgabe3Erweiterung.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="192" column="59" lean-forward="true" selection-start-line="192" selection-start-column="59" selection-end-line="192" selection-end-column="59" />
+            <state relative-caret-position="1411">
+              <caret line="83" column="59" selection-start-line="83" selection-start-column="59" selection-end-line="83" selection-end-column="59" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -153,8 +151,8 @@
         <option value="$PROJECT_DIR$/Beispiel6.txt" />
         <option value="$PROJECT_DIR$/Beispiel7.txt" />
         <option value="$PROJECT_DIR$/Aufgabe3.py" />
-        <option value="$PROJECT_DIR$/Aufgabe3Erweiterung.py" />
         <option value="$PROJECT_DIR$/Beispiel8.txt" />
+        <option value="$PROJECT_DIR$/Aufgabe3Erweiterung.py" />
       </list>
     </option>
   </component>
@@ -235,7 +233,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="CodingChallenge" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Aufgabe3Erweiterung" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Bwinf38_R2_A3" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -247,7 +245,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodingChallenge.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Aufgabe3Erweiterung.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -342,19 +340,19 @@
     </configuration>
     <list>
       <item itemvalue="Python.Aufgabe3" />
-      <item itemvalue="Python.CodingChallenge" />
       <item itemvalue="Python.SpeedTest" />
       <item itemvalue="Python.TSP" />
       <item itemvalue="Python.performanceTest" />
       <item itemvalue="Python.testing" />
+      <item itemvalue="Python.Aufgabe3Erweiterung" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Aufgabe3Erweiterung" />
         <item itemvalue="Python.testing" />
         <item itemvalue="Python.TSP" />
         <item itemvalue="Python.performanceTest" />
         <item itemvalue="Python.SpeedTest" />
-        <item itemvalue="Python.CodingChallenge" />
       </list>
     </recent_temporary>
   </component>
@@ -379,7 +377,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49884528" visible="true" weight="0.49740395" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49884528" visible="true" weight="0.37694705" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.418239" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -538,20 +536,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Aufgabe3Erweiterung.py">
+    <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="192" column="59" lean-forward="true" selection-start-line="192" selection-start-column="59" selection-end-line="192" selection-end-column="59" />
+        <state relative-caret-position="629">
+          <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Aufgabe3.py">
+    <entry file="file://$PROJECT_DIR$/Aufgabe3Erweiterung.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
+        <state relative-caret-position="1411">
+          <caret line="83" column="59" selection-start-line="83" selection-start-column="59" selection-end-line="83" selection-end-column="59" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

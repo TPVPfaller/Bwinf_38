@@ -139,7 +139,7 @@ def find_best_path(graph, start, targets, max_percentage):
             best_path = total_path
             min_turns = total_turns
             best_dist = total_distance
-        if total_turns == min_turns and total_distance < best_dist:
+        elif total_turns == min_turns and total_distance < best_dist:
             best_path = total_path
             min_turns = total_turns
             best_dist = total_distance
