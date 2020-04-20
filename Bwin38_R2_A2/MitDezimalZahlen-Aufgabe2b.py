@@ -22,12 +22,9 @@ def optimize_digits(target_number, digit, operations):
         rows[0].append(Expression('-', 0, rows[0][0], rows[0][0]))
         return rows[0][1], 2
     if digit < 14:
-        result = math.factorial(int(digit+1))
-        if result % 1.0 == 0:  # checking if number has a decimal place like .0
-            result = int(result)
-        else:
-            if len(str(result).split(".")[1]) > decimal_places:
-                result = None
+        result = None
+        if digit % 1 == 0:
+            result = math.factorial(int(digit+1))
         if result is not None:
             rows[0].append(Expression('!', result, rows[0][0], None))
             found_numbers.add(result)
@@ -87,11 +84,11 @@ def optimize_digits(target_number, digit, operations):
 
         for e in rows[n - 1]:
             result = e.number
-            if result <= 2:
+            if result <= 2 or result % 1 != 0:
                 continue
             count = False
             while result <= 10:
-                result = math.factorial(int(result)+1)
+                result = math.factorial(int(result))
                 if result <= 2:
                     break
                 if result not in found_numbers:
@@ -282,7 +279,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
                 continue
             if result >= 10 or result % 1 != 0:
                 continue
-            result = math.factorial(int(result+1))
+            result = math.factorial(int(result))
             if result not in found_numbers:
                 rows[n].append(Expression('!', result, e, None))
                 found_numbers.add(result)

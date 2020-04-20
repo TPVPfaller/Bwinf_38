@@ -107,7 +107,7 @@ def optimize_digits(target_number, digit, operations):
                             else:
                                 continue
                         elif k == '^':
-                            result = power(num1, num2, maximum, exponent)
+                            result = power(num1, num2, exponent)
                             if result is None:
                                 pass
                             elif result not in found_numbers:
@@ -115,7 +115,7 @@ def optimize_digits(target_number, digit, operations):
                                 found_numbers.add(result)
                                 if result == target_number:
                                     return rows[n][-1], len(rows)
-                            result = power(num2, num1, maximum, exponent)
+                            result = power(num2, num1, exponent)
                             if result is None:
                                 continue
                             reversed = True
@@ -132,19 +132,9 @@ def optimize_digits(target_number, digit, operations):
     sys.exit("Program interrupted because number of combinated digtis is greater than 30")
 
 
-def power(p, b, limit, exponent):
-    result = 1
+def power(p, b, exponent):
     if p <= exponent and b <= 10:
-        while p:
-            if p & 0x1:
-                result *= b
-            b *= b
-            p >>= 1
-            if b > limit:
-                break
-        if result > limit:
-            print("ss")
-            return
+        result = math.pow(b, p)
     else:
         return
     return result
@@ -234,7 +224,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
                             else:
                                 continue
                         elif k == '^':
-                            result = power(num1, num2, maximum, exponent)
+                            result = power(num1, num2, exponent)
                             if result is None:
                                 pass
                             elif result not in found_numbers:  # check if result is new
@@ -242,7 +232,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
                                 found_numbers.add(result)
                                 if result == target_number:
                                     return rows[n][-1], len(rows)
-                            result = power(num2, num1, maximum, exponent)
+                            result = power(num2, num1, exponent)
                             if result is None:
                                 continue
                             reversed = True

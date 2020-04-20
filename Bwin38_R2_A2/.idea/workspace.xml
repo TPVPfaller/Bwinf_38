@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="029389af-54c3-415d-b655-35824a8bfcc8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/Beispiel8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/Aufgabe2b.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MitDezimalZahlen-Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/MitDezimalZahlen-Aufgabe2b.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwinf38_R2_A3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwinf38_R2_A3/TSP.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,20 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Aufgabe2a.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="225" selection-start-line="225" selection-end-line="225" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Aufgabe2b.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1768">
-              <caret line="104" column="43" lean-forward="true" selection-start-line="104" selection-start-column="43" selection-end-line="104" selection-end-column="43" />
+            <state relative-caret-position="255">
+              <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -38,10 +30,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Aufgabe2b.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MitDezimalZahlen-Aufgabe2b.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="278" column="77" selection-start-line="278" selection-start-column="77" selection-end-line="278" selection-end-column="77" />
+            <state relative-caret-position="478">
+              <caret line="286" column="49" lean-forward="true" selection-start-line="286" selection-start-column="49" selection-end-line="286" selection-end-column="49" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -64,6 +68,7 @@
       <find>2020</find>
       <find>get_row</find>
       <find>0.03765690376569038</find>
+      <find>math</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -76,8 +81,8 @@
         <option value="$PROJECT_DIR$/Erweiterung-Aufgabe2b.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Aufgabe2a.py" />
-        <option value="$PROJECT_DIR$/MitDezimalZahlen-Aufgabe2b.py" />
         <option value="$PROJECT_DIR$/Aufgabe2b.py" />
+        <option value="$PROJECT_DIR$/MitDezimalZahlen-Aufgabe2b.py" />
       </list>
     </option>
   </component>
@@ -109,7 +114,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Bwinf38_R2_A3" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
@@ -124,7 +129,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Aufgabe2b">
+  <component name="RunManager" selected="Python.MitDezimalZahlen-Aufgabe2b">
     <configuration name="Aufgabe2a" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Bwin38_R2_A2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -232,11 +237,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Aufgabe2b" />
         <item itemvalue="Python.MitDezimalZahlen-Aufgabe2b" />
+        <item itemvalue="Python.Aufgabe2b" />
+        <item itemvalue="Python.Aufgabe2a" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.Erweiterung-Aufgabe2b" />
-        <item itemvalue="Python.Aufgabe2a" />
       </list>
     </recent_temporary>
   </component>
@@ -264,7 +269,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4987013" visible="true" weight="0.14488935" />
       <window_info id="Structure" order="1" sideWeight="0.5012987" side_tool="true" weight="0.14488935" />
@@ -357,18 +361,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Aufgabe2a.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="225" selection-start-line="225" selection-end-line="225" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MitDezimalZahlen-Aufgabe2b.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="278" column="77" selection-start-line="278" selection-start-column="77" selection-end-line="278" selection-end-column="77" />
+        <state relative-caret-position="255">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -377,8 +371,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Aufgabe2b.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1768">
-          <caret line="104" column="43" lean-forward="true" selection-start-line="104" selection-start-column="43" selection-end-line="104" selection-end-column="43" />
+        <state relative-caret-position="255">
+          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MitDezimalZahlen-Aufgabe2b.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="286" column="49" lean-forward="true" selection-start-line="286" selection-start-column="49" selection-end-line="286" selection-end-column="49" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
