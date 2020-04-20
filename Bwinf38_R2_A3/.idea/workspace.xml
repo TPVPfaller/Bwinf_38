@@ -6,10 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76400527-b43d-40d0-9e72-d8540f302612" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Erweiterung-Aufgabe2b.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/Aufgabe2b.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bwin38_R2_A2/MitDezimalZahlen-Aufgabe2b.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Bwin38_R2_A2/MitDezimalZahlen-Aufgabe2b.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -371,7 +369,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49884528" visible="true" weight="0.49740395" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49884528" weight="0.49740395" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.418239" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

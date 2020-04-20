@@ -18,13 +18,13 @@ def optimize_digits(target_number, digit, operations):
     rows = [[Expression(None, digit, None, None, True)]]
     found_numbers.add(digit)
     exponent = 7
-    if target_number == 0:
+    if target_number == 0:  # digit - digit
         rows[0].append(Expression('-', 0, rows[0][0], rows[0][0]))
         return rows[0][1], 2
     if digit > 9:
         exponent = 12
     maximum = 10 ** exponent  # Performance depends on this number
-    for n in range(1, 40):  # n := number of digits containing a term
+    for n in range(1, 40):  # n+1 := amount of digits containing a term
         i = n + 1
         sys.stdout.write("\rBerechnet gerade für n = %i" % i)
         sys.stdout.flush()
@@ -39,7 +39,7 @@ def optimize_digits(target_number, digit, operations):
         else:
             rows.append([])
 
-        if n == 1 and digit != 1:
+        if n == 1 and digit != 1:  # digit / digit
             rows[-1].append(Expression('/', 1, rows[0][0], rows[0][0]))
             found_numbers.add(1)
             if 1 == target_number:
@@ -100,7 +100,7 @@ def optimize_digits(target_number, digit, operations):
 def optimize_operators_and_digits(target_number, digit, operations):
     found_numbers = set()
     rows = [[Expression(None, digit, None, None, True)]]
-    if target_number == 0:
+    if target_number == 0:  # digit - digit
         rows[0].append(Expression('-', 0, rows[0][0], rows[0][0]))
         return rows[0][1], 3
     found_numbers.add(digit)
@@ -110,12 +110,12 @@ def optimize_operators_and_digits(target_number, digit, operations):
     if digit > 9:
         exponent = 12
     maximum = 10 ** exponent  # Performance depends on this number
-    for n in range(1, 70):
+    for n in range(1, 70):  # n+1 := amount of digits and operators containing a term
         i = n + 1
         sys.stdout.write("\rBerechnet gerade für n = %i" % i)
         sys.stdout.flush()
         if len(rows[n - 1]) != 0 and rows[n - 1][0].is_digit:
-            result = int(str(rows[n - 1][0].number) + str(digit))
+            result = int(str(rows[n - 1][0].number) + str(digit))  # Add number containing only the digit
             if result < maximum:
                 rows.append([Expression(None, result, None, None, True)])
                 found_numbers.add(result)
@@ -123,7 +123,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
                 rows.append([])
         else:
             rows.append([])
-        if n == 2 and digit != 1:
+        if n == 2 and digit != 1:  # digit / digit
             rows[-1].append(Expression('/', 1, rows[0][0], rows[0][0]))
             found_numbers.add(1)
             if 1 == target_number:
@@ -181,7 +181,7 @@ def optimize_operators_and_digits(target_number, digit, operations):
     sys.exit("Program interrupted because the number of combinated digtis is greater than 70")
 
 
-def get_term(a, operator, b):  # Rekursive Umwandlung in mathematische Notation
+def get_term(a, operator, b):  # recursive conversion in mathematical notation
 
     if a.is_digit and not b.is_digit:
         return '(' + str(a.number) + operator + get_term(b.child1, b.operator, b.child2) + ')'
@@ -196,13 +196,14 @@ def get_term(a, operator, b):  # Rekursive Umwandlung in mathematische Notation
         return '(' + str(a.number) + operator + str(b.number) + ')'
 
 
-# output
+# input
 print("Geben Sie die zu berechnende Jahreszahl ein:")
 target_number = int(input())
 print("Geben Sie eine Ziffer ein:")
 digit = int(input())
 print("Wollen Sie auch die Anzahl an Rechenzeichen optimieren? [y/n]")
 optimization = input()
+
 
 time1 = timer()
 # checking if target_number only contains the digit
